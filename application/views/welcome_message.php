@@ -1,9 +1,7 @@
-HALLO GAES
-asdasdasdadsasada
 <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
+        Dashboard Sandy TES Pull
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
