@@ -98,9 +98,7 @@
               <h3 class="box-title"><b>Galeri Kegiatan</p></b> </h3>
             </div>
             <div class="box-body" align="center">
-                <div class="box">
-                  <div id="my_camera"></div>
-                </div>
+                <div id="my_camera"></div>
             </div>
             <div class="box-footer">
               <div align="center">
@@ -390,9 +388,23 @@
 
     function do_upload() {
       Webcam.snap(function(data_uri){
-        Webcam.upload(data_uri, urls.save, function(code,text,res){
+        
+        var data = {
+          user: '1',
+          waktu: '2020-04-18',
+          keterangan: 'Tes',
+        }        
+
+        Webcam.upload(data_uri, urls.save+'?'+ $.param(data), function(code,text){
           if(code == 200){
-            window.open(urls.base+'/galeri', '_self');
+            results = JSON.parse(text);
+
+            if(results.success>0){
+              window.open(urls.base+'/galeri', '_self');
+            }else{
+              alert(results.error);
+            }
+            
           }else{
             alert('Upload foto gagal');
           }

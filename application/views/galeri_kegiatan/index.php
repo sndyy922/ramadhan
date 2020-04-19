@@ -96,23 +96,25 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title"><b>Galeri Kegiatan</p></b> </h3>
+              <a href="<?=site_url('galeri/form')?>" target="_blank" class="btn btn-info pull-right"><i class="fa fa-plus"></i> Tambah Foto</a>
             </div>
           </div>
 
           <div class="col-xs-12">
+          	<?php foreach ($data as $key => $value): ?>
               <div class="col-xs-3">
                 <!-- Box Comment -->
                 <div class="box box-widget">
                   <!-- /.box-header -->
                   <div class="box-body">
-                    <img class="img-responsive pad" src="../dist/img/photo2.png" alt="Photo">
-
-                    <p>I took this photo this morning. What do you guys think?</p>
-                    <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                    <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                    <span><?=$value['waktu'] ?></span><br/>
+                    <img class="img-responsive pad" src="<?=base_url('assets/upload/').$value['foto']?>" alt="Photo"><hr/>
+                    <p><?=$value['keterangan'] ?></p>
+                    <button type="button" class="btn bg-red btn-xs pull-right"><i class="fa fa-trash"></i> Delete</button>
                   </div>
                 </div>
               </div>
+          	<?php endforeach; ?>
               <!-- /.box -->
           </div>
           <!-- /.box -->

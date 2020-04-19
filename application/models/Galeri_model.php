@@ -5,7 +5,7 @@ class Galeri_model extends CI_Model {
 
 	public function get_list_foto($user)
 	{
-		return $this->db->get_where('tbl_foto',['user'=>$user]);
+		return $this->db->get_where('tbl_foto',['user'=>$user])->result_array();
 	}
 
 	public function insert_foto($data)

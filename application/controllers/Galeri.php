@@ -10,7 +10,8 @@ class Galeri extends CI_Controller {
 
 	public function index()
 	{
-        $this->load->view('galeri_kegiatan/index');
+		$d['data'] = $this->galeri_model->get_list_foto(1);
+        $this->load->view('galeri_kegiatan/index',$d);
 	}
 
 	public function form()
@@ -51,14 +52,42 @@ class Galeri extends CI_Controller {
 
             if($this->upload->do_upload('webcam')){
                 $upload_data = $this->upload->data();
-                $file['file'] = $upload_data['file_name'];
-                $res = "Success";
+                $file['foto'] = $upload_data['file_name'];
+                $res = 1;
             }else{
-                $res = "Upload file failed";
+            	$file['foto'];
+                $res = 0;
+            }
+
+
+            if($res == 1){
+	            $file['user'] = $this->input->get('user');
+	            $file['waktu'] = $this->input->get('waktu');
+	            $file['keterangan'] = $this->input->get('keterangan');
+
+	            if($this->galeri_model->insert_foto($file)){
+	            	$data = [
+	            		'success' => 1,
+	            		'message' => "Data berhasil disimpan",
+	            		'error' => "",
+	            	];
+	            }else{
+	            	$data = [
+	            		'success' => 0,
+	            		'message' => "",
+	            		'error' => "Data gagal disimpan",
+	            	];
+	            }
+            }else{
+            	$data = [
+            		'success' => 0,
+            		'message' => "",
+            		'error' => "Upload gagal",
+            	];
             }
 
         }
 
-        echo json_encode($res);
+        echo json_encode($data);
 	}
 }
