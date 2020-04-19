@@ -20,6 +20,6 @@ class Versi extends CI_Controller {
 	 */
 	public function index()
 	{
-                $this->template->load('template2','welcome_message2');
+                $this->template->load('siswa_tadarus','welcome_message2');
 	}
 }
