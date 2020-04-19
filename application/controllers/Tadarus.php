@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Versi extends CI_Controller {
+class Tadarus extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,6 +20,8 @@ class Versi extends CI_Controller {
 	 */
 	public function index()
 	{
-                $this->template->load('siswa_tadarus','welcome_message2');
+				$data = "";
+				$this->load->view('siswa_main/header',$data);
+				$this->load->view('siswa_tadarus',$data);
 	}
 }
