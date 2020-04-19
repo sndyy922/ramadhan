@@ -102,7 +102,7 @@
 
           <div class="col-xs-12">
           	<?php foreach ($data as $key => $value): ?>
-              <div class="col-xs-3">
+              <div class="col-xs-12 col-md-3">
                 <!-- Box Comment -->
                 <div class="box box-widget">
                   <!-- /.box-header -->
