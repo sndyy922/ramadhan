@@ -10,6 +10,7 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
+				$this->template->load('siswa_main/header','welcome_message');
                 $this->template->load('siswa_kegiatanutama','welcome_message');
 
 	}
