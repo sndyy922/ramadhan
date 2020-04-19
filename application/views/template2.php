@@ -333,15 +333,10 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview menu-open">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
+
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url(); ?>"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li class="active"><a href="<?php echo base_url('')."index.php/versi"; ?>"><i class="fa fa-circle-o"></i> Kegiatan Utama</a></li>
+            <li><a href="<?php echo base_url(); ?>"><i class="fa fa-edit text-red"></i> Kegiatan Utama</a></li>
+            <li class="active"><a href="<?php echo base_url('')."index.php/versi"; ?>"><i class="fa fa-edit text-blue"></i> Tadarus</a></li>
           </ul>
         </li>
         
@@ -370,44 +365,40 @@
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title"><b><p id="time"></p></b> </h3>
+              <h3 class="box-title"><b>Tabel Tadarus</p></b> </h3>
+			  <p id="time">
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
-                <tr>
-                  <th>Tanggal</th>
-                  <th>Subuh</th>
-                  <th>Dzuhur</th>
-                  <th>Ashar</th>
-                  <th>Maghrib</th>
-				  <th>Isya</th>
-				  <th>Aksi</th>
+				<tr>
+                  <th>Kegiatan</th>
+                  <th>Status</th>				                  
+                  <th>Jam</th>
+				  <th><button type="button" class="btn btn-block btn-info">Update</button></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>23</td>
+                <tr>                  
+                  <td>Subuh</td>
                   <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-				  <td><button type="button" class="btn btn-block btn-info">Update</button></td>
+				  <td><input type="text"></td>
+				  <td></td>
                 </tr>
-                
-              
+				<tr>                  
+                  <td>Dzuhur</td>
+                  <td><input type="checkbox"></td>
+				  <td><input type="text"></td>
+				  <td></td>
+                </tr>    				
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th>Tanggal</th>
-                  <th>Subuh</th>
-                  <th>Dzuhur</th>
-                  <th>Ashar</th>
-                  <th>Maghrib</th>
-				  <th>Isya</th>
-				  <th>Aksi</th>
+                  <th>Kegiatan</th>
+                  <th>Status</th>
+				  <th>Jam</th>
+				  <th></th>
                 </tr>
                 </tfoot>
               </table>
@@ -654,12 +645,11 @@
 <script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
   $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
+    $('#example1').DataTable({
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,
-      'ordering'    : true,
+      'ordering'    : false,
       'info'        : true,
       'autoWidth'   : false
     })
