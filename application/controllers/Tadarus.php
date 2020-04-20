@@ -21,6 +21,7 @@ class Tadarus extends CI_Controller {
 	public function index()
 	{
 				$data = "";
+
 				$this->load->view('siswa_main/header',$data);
 				$this->load->view('siswa_tadarus',$data);
 	}

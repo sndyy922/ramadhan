@@ -1,4 +1,64 @@
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 18px;
+}
 
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 11px;
+  width: 7px;
+  left: 2px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #fa320f;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #fa320f;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(13px);
+  -ms-transform: translateX(13px);
+  transform: translateX(17px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 17px;
+}
+
+.slider.round:before {
+  border-radius: 25%;
+}
+</style>
 
     <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -12,54 +72,54 @@
             <div class="box-header">
               <h3 class="box-title"><b>Tabel Sholat</p></b> </h3>
 			  <p id="time">
-			  <p> <center><b>Klik Tombol Update Setiap Kali Mengisi Data!!! </b></center></p>
+			  <p> <center><b>Harap Isi Data Dengan Jujur!!! </b></center></p>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body table-responsive no-padding">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
 				<tr>
                   <th>Kegiatan</th>
-                  <th>Status</th>				                  
-                  <th>Jam</th>
+                  <th>Sudah</th>				                  
+                  <th>Tanggal</th>
+				  <th>Jam</th>
+				  <th>Haid</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>                  
-                  <td>Subuh</td>
-                  <td><input type="checkbox"></td>
-				  <td><input type="datetime-local"></td>
-                </tr>
-				<tr>                  
-                  <td>Dzuhur</td>
-                  <td><input type="checkbox"></td>
-				  <td><input type="datetime-local"></td>
-                </tr>
-				<tr>                  
-                  <td>Ashar</td>
-                  <td><input type="checkbox"></td>
-				  <td><input type="datetime-local"></td>
-                </tr>
-				<tr>                  
-                  <td>Maghrib</td>
-                  <td><input type="checkbox"></td>
-				  <td><input type="datetime-local"></td>
-                </tr>
-				<tr>                  
-                  <td>Isya</td>
-                  <td><input type="checkbox"></td>
-				  <td><input type="datetime-local"></td>
-                </tr>				
-                </tbody>
+					<?php $no=1; foreach ($sholat as $key => $value): ?>
+					   <tr>
+						  <td><?php echo $value['sholat'];?></td>
+						  <?php $status = $value['status'];
+						  
+						  if ($status==1){
+						  ?>
+						  <td><input type="checkbox" name="sholat_chb" id="chb" checked onclick="checkbox(<?php echo $value['id_activity'];?>, <?php echo $value['status'];?>,'<?php echo $value['sholat'];?>');" checked> </td>
+						  <?php }else{?>
+						  <td><input type="checkbox" name="sholat_chb" id="chb"  onclick="checkbox(<?php echo $value['id_activity'];?>, <?php echo $value['status'];?>,'<?php echo $value['sholat'];?>');"> </td>
+						  <?php } ?>
+						  <td><?php echo $value['waktu'];?></td>
+						  <td><input class="form-control" type="time" name="time" id="time" value="<?php echo $value['jam'];?>" onchange="jam(event,<?php echo $value['id_activity'];?>)"></td>
+						  <td><label class="switch">
+							  <input type="checkbox">
+								<span class="slider"></span>
+							  </label>
+						   </td>
+
+					   </tr>
+					   <?php endforeach; ?>
+				</tbody>
                 <tfoot>
                 <tr>
                   <th>Kegiatan</th>
-                  <th>Status</th>
-				  <th>Jam</th>
+                  <th>Sudah</th>
+				   <th>Tanggal</th>
+				   <th>Jam</th>
+				   <th>Haid</th>
                 </tr>
                 </tfoot>
               </table>
-			  <button type="button" class="btn btn-block btn-info">Update</button>
+			  <!-- /.<button type="button" class="btn btn-block btn-info">Update</button> -->
             </div>
             <!-- /.box-body -->
           </div>
@@ -302,16 +362,60 @@
 <script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
-  $(function () {
-    $('#example1').DataTable({
+var table_sholat = $('#example1').DataTable({
       'paging'      : true,
-      'lengthChange': false,
+      'lengthChange': true,
       'searching'   : false,
       'ordering'    : false,
       'info'        : false,
       'autoWidth'   : false
     })
-  })
+	
+	function jam(e,id) {
+        var jam = e.target.value;
+		var id_act = id;
+	$.ajax({
+			url	     : '<?php echo site_url('welcome/update_jam_sholat')?>',
+			type     : 'POST',
+			dataType : 'html',
+			data     : 'id_act='+id_act+'&jam='+jam,
+			success  : function(respons){
+				//$('#pesan_kirim').html(respons);
+				
+			},
+		})
+    }
+	function checkbox(id, st, ns) {
+		var id_act = id;
+			var status = st;
+			var sholat = ns;
+		if(st==1){
+			//alert("kirim data belum "+ns);
+            $.ajax({
+			url	     : '<?php echo site_url('welcome/update_sholat')?>',
+			type     : 'POST',
+			dataType : 'html',
+			data     : 'id_act='+id_act+'&status='+status+'&sholat='+sholat,
+			success  : function(respons){
+				//$('#pesan_kirim').html(respons);
+				$( "#example1" ).load( "<?php echo site_url()?> #example1" );
+			},
+		})
+ 
+		}else{
+            $.ajax({
+			url	     : '<?php echo site_url('welcome/update_belum_sholat')?>',
+			type     : 'POST',
+			dataType : 'html',
+			data     : 'id_act='+id_act+'&status='+status+'&sholat='+sholat,
+			success  : function(respons){
+				//$('#pesan_kirim').html(respons);
+				$( "#example1" ).load( "<?php echo site_url()?> #example1" );
+			},
+		})
+		}
+	}
+	//sampai sini
 var timestamp = '<?=time();?>';
 function updateTime(){
   $('#time').html(Date(timestamp));
