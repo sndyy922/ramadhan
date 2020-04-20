@@ -43,6 +43,22 @@ class Welcome extends CI_Controller {
 	   $query_update =  $this->db->query("UPDATE tbl_activity_sholat SET tbl_activity_sholat.status = 0 WHERE tbl_activity_sholat.id = $id_act;");
 	   
     }
+	function update_sholat_haid(){
+       $id_act=$this->input->post('id_act');
+	   $status=$this->input->post('status');
+	   $sholat=$this->input->post('sholat');
+	   $query_update =  $this->db->query("UPDATE tbl_activity_sholat SET tbl_activity_sholat.haid = 0 WHERE tbl_activity_sholat.id = $id_act;");
+	   
+	   
+    }
+	function update_sholat_tidak_haid(){
+	   $id_act=$this->input->post('id_act');
+	   $status=$this->input->post('status');
+	   $sholat=$this->input->post('sholat');
+	   $query_update =  $this->db->query("UPDATE tbl_activity_sholat SET tbl_activity_sholat.haid = 1 WHERE tbl_activity_sholat.id = $id_act;");
+	   $query_update2 =  $this->db->query("UPDATE tbl_activity_sholat SET tbl_activity_sholat.status = 0 WHERE tbl_activity_sholat.id = $id_act;");
+	   
+    }
 	function update_belum_sholat(){
 	   $id_act=$this->input->post('id_act');
 	   $status=$this->input->post('status');

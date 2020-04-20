@@ -70,7 +70,7 @@ input:checked + .slider:before {
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title"><b>Tabel Sholat</p></b> </h3>
+              <h3 class="box-title"><b>Tabel Sholat Wajib</p></b> </h3>
 			  <p id="time">
 			  <p> <center><b>Harap Isi Data Dengan Jujur!!! </b></center></p>
             </div>
@@ -87,27 +87,43 @@ input:checked + .slider:before {
                 </tr>
                 </thead>
                 <tbody>
-					<?php $no=1; foreach ($sholat as $key => $value): ?>
+					<?php $no=1; foreach ($sholat as $key => $value): if($value['tipe']=='wajib'){ ?>
 					   <tr>
 						  <td><?php echo $value['sholat'];?></td>
 						  <?php $status = $value['status'];
-						  
+						  $haid = $value['haid'];
 						  if ($status==1){
 						  ?>
-						  <td><input type="checkbox" name="sholat_chb" id="chb" checked onclick="checkbox(<?php echo $value['id_activity'];?>, <?php echo $value['status'];?>,'<?php echo $value['sholat'];?>');" checked> </td>
-						  <?php }else{?>
-						  <td><input type="checkbox" name="sholat_chb" id="chb"  onclick="checkbox(<?php echo $value['id_activity'];?>, <?php echo $value['status'];?>,'<?php echo $value['sholat'];?>');"> </td>
-						  <?php } ?>
+						  <td><input type="checkbox" name="sholat_chb" id="chb<?php echo $value['id_activity'];?>" onclick="checkbox(<?php echo $value['id_activity'];?>, <?php echo $value['status'];?>,'<?php echo $value['sholat'];?>');" checked> </td>
+						  <?php }else{
+							  if ($haid==1){
+						  ?>
+						  <td><input type="checkbox" name="sholat_chb" id="chb<?php echo $value['id_activity'];?>"  onclick="checkbox(<?php echo $value['id_activity'];?>, <?php echo $value['status'];?>,'<?php echo $value['sholat'];?>');" disabled> </td>
+							  <?php }else{?>
+								  <td><input type="checkbox" name="sholat_chb" id="chb<?php echo $value['id_activity'];?>"  onclick="checkbox(<?php echo $value['id_activity'];?>, <?php echo $value['status'];?>,'<?php echo $value['sholat'];?>');"> </td>
+							  
+						  <?php } } ?>
 						  <td><?php echo $value['waktu'];?></td>
 						  <td><input class="form-control" type="time" name="time" id="time" value="<?php echo $value['jam'];?>" onchange="jam(event,<?php echo $value['id_activity'];?>)"></td>
+						   <?php
+						  
+						  if ($haid==1){
+						  ?>
 						  <td><label class="switch">
-							  <input type="checkbox">
+							  <input type="checkbox" onclick="haid(<?php echo $value['id_activity'];?>, <?php echo $value['haid'];?>,'<?php echo $value['sholat'];?>');" checked>
 								<span class="slider"></span>
 							  </label>
 						   </td>
+						  <?php }else{?>
+						  <td><label class="switch">
+							  <input type="checkbox" onclick="haid(<?php echo $value['id_activity'];?>, <?php echo $value['haid'];?>,'<?php echo $value['sholat'];?>');">
+								<span class="slider"></span>
+							  </label>
+						   </td>
+						  <?php } ?>
 
 					   </tr>
-					   <?php endforeach; ?>
+					<?php } endforeach; ?>
 				</tbody>
                 <tfoot>
                 <tr>
@@ -123,6 +139,79 @@ input:checked + .slider:before {
             </div>
             <!-- /.box-body -->
           </div>
+		  
+		  <div class="box">
+            <div class="box-header">
+              <h3 class="box-title"><b>Tabel Sholat Sunnah</p></b> </h3>
+			  <p id="time">
+			  <p> <center><b>Harap Isi Data Dengan Jujur!!! </b></center></p>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table id="example2" class="table table-bordered table-striped">
+                <thead>
+				<tr>
+                  <th>Kegiatan</th>
+                  <th>Sudah</th>				                  
+                  <th>Tanggal</th>
+				  <th>Jam</th>
+				  <th>Haid</th>
+                </tr>
+                </thead>
+                <tbody>
+					<?php $no=1; foreach ($sholat as $key => $value): if($value['tipe']=='sunnah'){ ?>
+					   <tr>
+						  <td><?php echo $value['sholat'];?></td>
+						  <?php $status = $value['status'];
+						  $haid = $value['haid'];
+						  if ($status==1){
+						  ?>
+						  <td><input type="checkbox" name="sholat_chb" id="chb<?php echo $value['id_activity'];?>" onclick="checkbox(<?php echo $value['id_activity'];?>, <?php echo $value['status'];?>,'<?php echo $value['sholat'];?>');" checked> </td>
+						  <?php }else{
+							  if ($haid==1){
+						  ?>
+						  <td><input type="checkbox" name="sholat_chb" id="chb<?php echo $value['id_activity'];?>"  onclick="checkbox(<?php echo $value['id_activity'];?>, <?php echo $value['status'];?>,'<?php echo $value['sholat'];?>');" disabled> </td>
+							  <?php }else{?>
+								  <td><input type="checkbox" name="sholat_chb" id="chb<?php echo $value['id_activity'];?>"  onclick="checkbox(<?php echo $value['id_activity'];?>, <?php echo $value['status'];?>,'<?php echo $value['sholat'];?>');"> </td>
+							  
+						  <?php } } ?>
+						  <td><?php echo $value['waktu'];?></td>
+						  <td><input class="form-control" type="time" name="time" id="time" value="<?php echo $value['jam'];?>" onchange="jam(event,<?php echo $value['id_activity'];?>)"></td>
+						   <?php
+						  
+						  if ($haid==1){
+						  ?>
+						  <td><label class="switch">
+							  <input type="checkbox" onclick="haid(<?php echo $value['id_activity'];?>, <?php echo $value['haid'];?>,'<?php echo $value['sholat'];?>');" checked>
+								<span class="slider"></span>
+							  </label>
+						   </td>
+						  <?php }else{?>
+						  <td><label class="switch">
+							  <input type="checkbox" onclick="haid(<?php echo $value['id_activity'];?>, <?php echo $value['haid'];?>,'<?php echo $value['sholat'];?>');">
+								<span class="slider"></span>
+							  </label>
+						   </td>
+						  <?php } ?>
+
+					   </tr>
+					<?php } endforeach; ?>
+				</tbody>
+                <tfoot>
+                <tr>
+                  <th>Kegiatan</th>
+                  <th>Sudah</th>
+				   <th>Tanggal</th>
+				   <th>Jam</th>
+				   <th>Haid</th>
+                </tr>
+                </tfoot>
+              </table>
+			  <!-- /.<button type="button" class="btn btn-block btn-info">Update</button> -->
+            </div>
+            <!-- /.box-body -->
+          </div>
+          
           <!-- /.box -->
         </div>
         <!-- /.col -->
@@ -362,6 +451,7 @@ input:checked + .slider:before {
 <script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
+ myfunc();
 var table_sholat = $('#example1').DataTable({
       'paging'      : true,
       'lengthChange': true,
@@ -401,7 +491,6 @@ var table_sholat = $('#example1').DataTable({
 				$( "#example1" ).load( "<?php echo site_url()?> #example1" );
 			},
 		})
- 
 		}else{
             $.ajax({
 			url	     : '<?php echo site_url('welcome/update_belum_sholat')?>',
@@ -413,6 +502,38 @@ var table_sholat = $('#example1').DataTable({
 				$( "#example1" ).load( "<?php echo site_url()?> #example1" );
 			},
 		})
+		}
+	}
+	
+	function haid(id, st, ns) {
+		var id_act = id;
+			var status = st;
+			var sholat = ns;
+		if(st==1){
+			//alert("kirim data belum "+ns);
+            $.ajax({
+			url	     : '<?php echo site_url('welcome/update_sholat_haid')?>',
+			type     : 'POST',
+			dataType : 'html',
+			data     : 'id_act='+id_act+'&status='+status+'&sholat='+sholat,
+			success  : function(respons){
+				//$('#pesan_kirim').html(respons);
+				$( "#example1" ).load( "<?php echo site_url()?> #example1" );
+			},
+		})
+		$("#chb"+id_act).prop('disabled', false);
+		}else{
+            $.ajax({
+			url	     : '<?php echo site_url('welcome/update_sholat_tidak_haid')?>',
+			type     : 'POST',
+			dataType : 'html',
+			data     : 'id_act='+id_act+'&status='+status+'&sholat='+sholat,
+			success  : function(respons){
+				//$('#pesan_kirim').html(respons);
+				$( "#example1" ).load( "<?php echo site_url()?> #example1" );
+			},
+		})
+		$("#chb"+id_act).prop('disabled', true);
 		}
 	}
 	//sampai sini

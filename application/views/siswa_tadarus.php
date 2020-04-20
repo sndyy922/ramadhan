@@ -18,7 +18,8 @@
                 <thead>
 				<tr>
                   <th>Nama Surat</th>	
-				  <th>Waktu</th>				  
+				  <th>Tanggal</th>
+				  <th>Jam</th>					  
                   <th>Surat Ke</th>
 				  <th>Mulai Ayat</th>
 				  <th>Selesai Ayat</th>
@@ -26,15 +27,30 @@
                 </thead>
                 <tbody>
                 <tr>                  
-                  <td>Al Fathihah </td>
-                  <td><input type="datetime-local"></td>
-				  <td><input type="number"></td>
-				  <td><input type="number"></td>
-				  <td><input type="number"></td>
+                  <td><input type="text" id="nama_surat"></td>
+                  <td><?php
+					$h = "17";// Hour for time zone goes here e.g. +7 or -4, just remove the + or -
+					$hm = $h * 60;
+					$ms = $hm * 60;
+					//$gmdate = gmdate("m/d/Y g:i:s A", time()-($ms)); // the "-" can be switched to a plus if that's what your time zone is.
+					$waktu = substr(gmdate("Y-m-d g:i:s A", time()-($ms)),0,10);
+					echo $waktu;?>
+					<input type="hidden" value ="<?php
+					$h = "17";// Hour for time zone goes here e.g. +7 or -4, just remove the + or -
+					$hm = $h * 60;
+					$ms = $hm * 60;
+					//$gmdate = gmdate("m/d/Y g:i:s A", time()-($ms)); // the "-" can be switched to a plus if that's what your time zone is.
+					$tgl = substr(gmdate("Y-m-d g:i:s A", time()-($ms)),0,10);
+					echo $tgl;?>"  id="tgl">
+				  </td>
+				  <td><input type="time" value = "00:00" id="jam"></td>
+				  <td><input type="number" id="suratke"></td>
+				  <td><input type="number" id="dariayat"></td>
+				  <td><input type="number" id="sampaiayat"></td>
                 </tr> 				
                 </tbody>
               </table>
-			  <button type="button" class="btn btn-block btn-warning">Tambah</button>
+			  <button type="button" class="btn btn-block btn-warning" onclick="tambah_data()">Tambah</button>
             </div>
             <!-- /.box-body -->
           </div>
@@ -49,7 +65,8 @@
                 <thead>
 				<tr>
                   <th>Nama Surat</th>	
-				  <th>Waktu</th>				  
+				  <th>Tanggal</th>				  
+				  <th>Jam</th>				  
                   <th>Surat Ke</th>
 				  <th>Mulai Ayat</th>
 				  <th>Selesai Ayat</th>
@@ -57,19 +74,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>                  
-                  <td>Al Fathihah </td>
-                  <td>14/04/2020 12.21</td>
-				  <td>1</td>
-				  <td>1</td>
-				  <td>5</td>
-				  <td><button type="button" class="btn btn-info">Edit</button> &nbsp <button type="button" class="btn btn-danger">Hapus</button></td>
-                </tr> 				
-                </tbody>
+					<?php $no=1; foreach ($tadarus as $key => $value):  ?>
+					   <tr>
+							<td><?php echo $value['nama_surat'];?></td>
+							<td><?php echo $value['tgl'];?></td>
+							<td><?php echo $value['jam'];?></td>
+							<td><?php echo $value['suratke'];?></td>
+							<td><?php echo $value['dari'];?></td>
+							<td><?php echo $value['sampai'];?></td>
+							<td><?php echo $value['sampai'];?></td>
+					   </tr>
+					<?php  endforeach; ?>
+				</tbody>
                 <tfoot>
                 <tr>
 				  <th>Nama Surat</th>	
-				  <th>Waktu</th>				  
+				  <th>Tanggal</th>				  
+				  <th>Jam</th>				  
                   <th>Surat Ke</th>
 				  <th>Mulai Ayat</th>
 				  <th>Selesai Ayat</th>
@@ -318,7 +339,25 @@
 <script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
-
+	function tambah_data() {
+		var nama_surat = $('#nama_surat').val();
+		var tanggal = $('#tgl').val();
+		var jam= $('#jam').val();
+		var suratke = $('#suratke').val();
+		var dariayat = $('#dariayat').val();
+		var sampaiayat = $('#sampaiayat').val();
+		//tgl,jam,suratke,dariayat,sampaiayat
+		$.ajax({
+			url	     : '<?php echo site_url('tadarus/tambah')?>',
+			type     : 'POST',
+			dataType : 'html',
+			data     : 'nama_surat='+nama_surat+'&tanggal='+tanggal+'&jam='+jam+'&suratke='+suratke+'&dariayat='+dariayat+'&sampaiayat='+sampaiayat,
+			success  : function(respons){
+				//$('#pesan_kirim').html(respons);
+				$( "#example1" ).load( "<?php echo site_url('index.php/tadarus')?> #example12" );
+			},
+		})
+	}
   $(function () {
     $('#example1').DataTable({
       'paging'      : false,
