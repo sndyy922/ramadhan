@@ -12,7 +12,7 @@
             <div class="box-header">
               <h3 class="box-title"><b>Tabel Sholat</p></b> </h3>
 			  <p id="time">
-			  <p> <center><b>Klik Tombol Update Setiap Kali Mengisi Data!!! </b></center></p>
+			  <p> <center><b>Harap Isi Data Dengan Jujur!!! </b></center></p>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -21,45 +21,39 @@
 				<tr>
                   <th>Kegiatan</th>
                   <th>Status</th>				                  
-                  <th>Jam</th>
+                  <th>Tanggal</th>
+				  <th>Jam</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>                  
-                  <td>Subuh</td>
-                  <td><input type="checkbox"></td>
-				  <td><input type="datetime-local"></td>
-                </tr>
-				<tr>                  
-                  <td>Dzuhur</td>
-                  <td><input type="checkbox"></td>
-				  <td><input type="datetime-local"></td>
-                </tr>
-				<tr>                  
-                  <td>Ashar</td>
-                  <td><input type="checkbox"></td>
-				  <td><input type="datetime-local"></td>
-                </tr>
-				<tr>                  
-                  <td>Maghrib</td>
-                  <td><input type="checkbox"></td>
-				  <td><input type="datetime-local"></td>
-                </tr>
-				<tr>                  
-                  <td>Isya</td>
-                  <td><input type="checkbox"></td>
-				  <td><input type="datetime-local"></td>
-                </tr>				
-                </tbody>
+					<?php $no=1; foreach ($sholat as $key => $value): ?>
+					   <tr>
+						  <td><?php echo $value['sholat'];?></td>
+						  <?php $status = $value['status'];
+						  
+						  if ($status==1){
+						  ?>
+						  <td><input type="checkbox" name="sholat_chb" id="chb" checked onclick="checkbox(<?php echo $value['id_activity'];?>, <?php echo $value['status'];?>,'<?php echo $value['sholat'];?>');" checked> </td>
+						  <?php }else{?>
+						  <td><input type="checkbox" name="sholat_chb" id="chb"  onclick="checkbox(<?php echo $value['id_activity'];?>, <?php echo $value['status'];?>,'<?php echo $value['sholat'];?>');"> </td>
+						  <?php } ?>
+						  <td><input class="form-control" type="date" name="date" id="date" value="<?php echo $value['waktu'];?>" onchange="tanggal(event,<?php echo $value['id_activity'];?>)"></td>
+
+						  <td><input class="form-control" type="time" name="time" id="time" value="<?php echo $value['jam'];?>" onchange="jam(event,<?php echo $value['id_activity'];?>)"></td>
+
+					   </tr>
+					   <?php endforeach; ?>
+				</tbody>
                 <tfoot>
                 <tr>
                   <th>Kegiatan</th>
                   <th>Status</th>
+				   <th>Tanggal</th>
 				  <th>Jam</th>
                 </tr>
                 </tfoot>
               </table>
-			  <button type="button" class="btn btn-block btn-info">Update</button>
+			  <!-- /.<button type="button" class="btn btn-block btn-info">Update</button> -->
             </div>
             <!-- /.box-body -->
           </div>
@@ -302,8 +296,7 @@
 <script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
-  $(function () {
-    $('#example1').DataTable({
+var table_sholat = $('#example1').DataTable({
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,
@@ -311,7 +304,66 @@
       'info'        : false,
       'autoWidth'   : false
     })
-  })
+	
+	function tanggal(e,id) {
+        var tanggal = e.target.value;
+		var id_act = id;
+		$.ajax({
+			url	     : '<?php echo site_url('welcome/update_tanggal_sholat')?>',
+			type     : 'POST',
+			dataType : 'html',
+			data     : 'id_act='+id_act+'&tanggal='+tanggal,
+			success  : function(respons){
+				//$('#pesan_kirim').html(respons);
+				$( "#example1" ).load( "<?php echo site_url()?> #example1" );
+			},
+		})
+    }
+	function jam(e,id) {
+        var jam = e.target.value;
+		var id_act = id;
+		$.ajax({
+			url	     : '<?php echo site_url('welcome/update_jam_sholat')?>',
+			type     : 'POST',
+			dataType : 'html',
+			data     : 'id_act='+id_act+'&jam='+jam,
+			success  : function(respons){
+				//$('#pesan_kirim').html(respons);
+				$( "#example1" ).load( "<?php echo site_url()?> #example1" );
+			},
+		})
+    }
+	function checkbox(id, st, ns) {
+		var id_act = id;
+			var status = st;
+			var sholat = ns;
+		if(st==1){
+			//alert("kirim data belum "+ns);
+            $.ajax({
+			url	     : '<?php echo site_url('welcome/update_sholat')?>',
+			type     : 'POST',
+			dataType : 'html',
+			data     : 'id_act='+id_act+'&status='+status+'&sholat='+sholat,
+			success  : function(respons){
+				//$('#pesan_kirim').html(respons);
+				$( "#example1" ).load( "<?php echo site_url()?> #example1" );
+			},
+		})
+ 
+		}else{
+            $.ajax({
+			url	     : '<?php echo site_url('welcome/update_belum_sholat')?>',
+			type     : 'POST',
+			dataType : 'html',
+			data     : 'id_act='+id_act+'&status='+status+'&sholat='+sholat,
+			success  : function(respons){
+				//$('#pesan_kirim').html(respons);
+				$( "#example1" ).load( "<?php echo site_url()?> #example1" );
+			},
+		})
+		}
+	}
+	//sampai sini
 var timestamp = '<?=time();?>';
 function updateTime(){
   $('#time').html(Date(timestamp));
