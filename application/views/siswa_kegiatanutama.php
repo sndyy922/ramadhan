@@ -155,7 +155,6 @@ input:checked + .slider:before {
                   <th>Sudah</th>				                  
                   <th>Tanggal</th>
 				  <th>Jam</th>
-				  <th>Haid</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -177,22 +176,6 @@ input:checked + .slider:before {
 						  <?php } } ?>
 						  <td><?php echo $value['waktu'];?></td>
 						  <td><input class="form-control" type="time" name="time" id="time" value="<?php echo $value['jam'];?>" onchange="jam(event,<?php echo $value['id_activity'];?>)"></td>
-						   <?php
-						  
-						  if ($haid==1){
-						  ?>
-						  <td><label class="switch">
-							  <input type="checkbox" onclick="haid(<?php echo $value['id_activity'];?>, <?php echo $value['haid'];?>,'<?php echo $value['sholat'];?>');" checked>
-								<span class="slider"></span>
-							  </label>
-						   </td>
-						  <?php }else{?>
-						  <td><label class="switch">
-							  <input type="checkbox" onclick="haid(<?php echo $value['id_activity'];?>, <?php echo $value['haid'];?>,'<?php echo $value['sholat'];?>');">
-								<span class="slider"></span>
-							  </label>
-						   </td>
-						  <?php } ?>
 
 					   </tr>
 					<?php } endforeach; ?>
@@ -203,7 +186,6 @@ input:checked + .slider:before {
                   <th>Sudah</th>
 				   <th>Tanggal</th>
 				   <th>Jam</th>
-				   <th>Haid</th>
                 </tr>
                 </tfoot>
               </table>
