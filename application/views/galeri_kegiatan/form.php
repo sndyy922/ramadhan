@@ -1,91 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Amaliah Ramadhan</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/AdminLTE/bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/AdminLTE/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/AdminLTE/dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/AdminLTE/dist/css/skins/_all-skins.min.css">
-
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
-</head>
-<body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
-
-  <header class="main-header">
-
-    <!-- Logo -->
-    <a href="<?php echo base_url(); ?>" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>R</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Amaliah</b>Ramadhan</span>
-    </a>
-
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-      <!-- Navbar Right Menu -->
-    </nav>
-  </header>
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="<?php echo base_url(); ?>assets/logo.png" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>Nama</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Kelamin</a>
-        </div>
-      </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                  <i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview menu-open">
-
-          <ul class="treeview-menu">
-            <li class="active"><a href="<?php echo base_url(); ?>"><i class="fa fa-edit text-red"></i> Kegiatan Utama</a></li>
-            <li><a href="<?php echo base_url('').'index.php/versi'; ?>"><i class="fa fa-edit text-blue"></i> Tadarus</a></li>
-          </ul>
-        </li>
-        
-    </section>
-    <!-- /.sidebar -->
-  </aside>
-
-    <div class="content-wrapper">
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
 
     <!-- Main content -->
@@ -95,17 +8,52 @@
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title"><b>Galeri Kegiatan</p></b> </h3>
+              <h3 class="box-title"><b>Form Tambah Kegiatan</p></b> </h3>
             </div>
-            <div class="box-body" align="center">
-                <div id="my_camera"></div>
+            <div class="box-body">
+                <div class="col-md-3"></div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="form-group row">
+                    <div class="col-md-2 col-xs-3">
+                      <label style="font-size: 17px; vertical-align: sub;">
+                        Keterangan
+                      </label>
+                    </div>
+                    <div class="col-xs-8 col-xs-9">
+                      :<input style="width:90% ;" id="form_keterangan" type="text" class="form-control pull-right" placeholder="Silahkan masukan keterangan...">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-2 col-xs-3">
+                      <label style="font-size: 17px; vertical-align: sub;">Waktu</label>
+                    </div>
+                    <div class="col-md-8 col-xs-9">
+                      :<label style="font-size: 17px; vertical-align: sub; margin-left: 10%"><?=date_create($now)->format('l, d F Y'); ?></label>
+                      <input type="hidden" id="form_waktu" value="<?=$now ?>" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-2 col-xs-3">
+                      <label style="font-size: 17px; vertical-align: sub;">Foto Kegiatan</label>
+                    </div>
+                    <div class="col-md-8 col-xs-9">
+                      :
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12" align="center" style="margin-bottom: 3%; ">
+                  <div id="my_camera"></div>
+<!--                   <div class="hidden-">
+                    <input type="file" id="form_file" name="webcam" accept="image/*;capture=camera">
+                  </div> -->
+                </div>
             </div>
             <div class="box-footer">
               <div align="center">
-                <button type="button" class="btn btn-pre">Batal</button>
-                <button type="button" class="btn btn-post" onclick="cancel_preview()">Ulangi</button>&nbsp;
-                <button type="button" class="btn bg-navy btn-pre" onclick="do_preview()">Take a photo</button>
-                <button type="button" class="btn btn-info btn-post" onclick="do_upload()">Upload</button>
+                <a href="<?=site_url('galeri'); ?>" class="btn btn-lg btn-default btn-pre">Batal</a>
+                <button type="button" class="btn btn-lg btn-post" onclick="cancel_preview()">Ulangi</button>&nbsp;
+                <button type="button" class="btn btn-lg bg-navy btn-pre" onclick="do_preview()">Take a photo</button>
+                <button type="button" class="btn btn-lg btn-info btn-post" onclick="do_upload()">Upload</button>
               </div>
             </div>
           </div>
@@ -343,30 +291,31 @@
     }
 
     $(function(){
-        $('.btn-pre').show();
-        $('.btn-post').hide();
 
-        Webcam.set({
-          // live preview size
-          width: 640,
-          height: 480,
-          
-          // device capture size
-          dest_width: 640,
-          dest_height: 480,
-          
-          // final cropped size
-          crop_width: 480,
-          crop_height: 480,
-          
-          // format and quality
-          image_format: 'jpeg',
-          jpeg_quality: 90,
-          
-          // flip horizontal (mirror mode)
-          flip_horiz: true
-        });
-        Webcam.attach( '#my_camera' );
+      $('.btn-pre').show();
+      $('.btn-post').hide();
+
+      Webcam.set({
+        // live preview size
+        width: 640,
+        height: 480,
+        
+        // device capture size
+        dest_width: 640,
+        dest_height: 480,
+        
+        // final cropped size
+        crop_width: 480,
+        crop_height: 480,
+        
+        // format and quality
+        image_format: 'jpeg',
+        jpeg_quality: 90,
+        
+        // flip horizontal (mirror mode)
+        flip_horiz: true
+      });
+      Webcam.attach( '#my_camera' );
     });
 
     function cancel_preview() {
@@ -387,30 +336,35 @@
     }
 
     function do_upload() {
-      Webcam.snap(function(data_uri){
-        
-        var data = {
-          user: '1',
-          waktu: '2020-04-18',
-          keterangan: 'Tes',
-        }        
+      
+        Webcam.snap(function(data_uri){
+          
+          var data = {
+            user: '1',
+            keterangan: $('#form_keterangan').val(),
+            waktu: $('#form_waktu').val(),
+          }        
 
-        Webcam.upload(data_uri, urls.save+'?'+ $.param(data), function(code,text){
-          if(code == 200){
-            results = JSON.parse(text);
+          Webcam.upload(data_uri, urls.save+'?'+ $.param(data), function(code,text){
+            if(code == 200){
+              results = JSON.parse(text);
 
-            if(results.success>0){
-              window.open(urls.base+'/galeri', '_self');
+              if(results.success>0){
+                window.open(urls.base+'/galeri', '_self');
+              }else{
+                alert(results.error);
+              }
+              
             }else{
-              alert(results.error);
+              alert('Upload foto gagal');
             }
-            
-          }else{
-            alert('Upload foto gagal');
-          }
+          });
         });
-      });
     }
+
+    function isMobileDevice() {
+        return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    };
 
   </script>
 

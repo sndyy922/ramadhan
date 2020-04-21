@@ -5,24 +5,28 @@ class Galeri extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+        date_default_timezone_set('Asia/Jakarta');
 		$this->load->model('galeri_model');
 	}
 
 	public function index()
 	{
 		$d['data'] = $this->galeri_model->get_list_foto(1);
-        $this->load->view('galeri_kegiatan/index',$d);
+        $this->load->view('siswa_main/header',$d);
+        $this->load->view('galeri_kegiatan/index');
 	}
 
 	public function form()
 	{
+        $d['now'] = date('Y-m-d H:i:s');
+        $this->load->view('siswa_main/header', $d);
         $this->load->view('galeri_kegiatan/form');
 	}
 
 	public function upload_foto()
 	{
 		// $files = $_FILES['webcam'];
-        $files = !empty($_FILES['webcam']) ? $_FILES['webcam']: NULL;
+        $files = !empty($_FILES['webcam']) ? $_FILES['webcam']: NULL;   
 
         if($_FILES['webcam']['error'] == UPLOAD_ERR_OK){
 
@@ -90,4 +94,32 @@ class Galeri extends CI_Controller {
 
         echo json_encode($data);
 	}
+
+    public function delete_foto($id)
+    {   
+        $detail = $this->galeri_model->get_detail_foto($id);
+        if($detail){
+            if($this->galeri_model->delete_foto($detail['id'])){
+                $data = [
+                    'success' => 1,
+                    'message' => 'Data berhasil dihapus',
+                    'error' => '',
+                ];    
+            }else{
+                $data = [
+                    'success' => 0,
+                    'message' => '',
+                    'error' => 'Data gagal dihapus',
+                ];
+            }
+        }else{
+            $data = [
+                'success' => 0,
+                'message' => '',
+                'error' => 'Invalid Id',
+            ];
+        }
+
+        echo json_encode($data);
+    }
 }

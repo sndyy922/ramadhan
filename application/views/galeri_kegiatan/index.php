@@ -1,91 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Amaliah Ramadhan</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/AdminLTE/bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/AdminLTE/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/AdminLTE/dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/AdminLTE/dist/css/skins/_all-skins.min.css">
-
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
-</head>
-<body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
-
-  <header class="main-header">
-
-    <!-- Logo -->
-    <a href="<?php echo base_url(); ?>" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>R</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Amaliah</b>Ramadhan</span>
-    </a>
-
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-      <!-- Navbar Right Menu -->
-    </nav>
-  </header>
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="<?php echo base_url(); ?>assets/logo.png" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>Nama</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Kelamin</a>
-        </div>
-      </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                  <i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview menu-open">
-
-          <ul class="treeview-menu">
-            <li class="active"><a href="<?php echo base_url(); ?>"><i class="fa fa-edit text-red"></i> Kegiatan Utama</a></li>
-            <li><a href="<?php echo base_url('').'index.php/versi'; ?>"><i class="fa fa-edit text-blue"></i> Tadarus</a></li>
-          </ul>
-        </li>
-        
-    </section>
-    <!-- /.sidebar -->
-  </aside>
-
-    <div class="content-wrapper">
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
 
     <!-- Main content -->
@@ -110,7 +23,7 @@
                     <span><?=$value['waktu'] ?></span><br/>
                     <img class="img-responsive pad" src="<?=base_url('assets/upload/').$value['foto']?>" alt="Photo"><hr/>
                     <p><?=$value['keterangan'] ?></p>
-                    <button type="button" class="btn bg-red btn-xs pull-right"><i class="fa fa-trash"></i> Delete</button>
+                    <button type="button" class="btn bg-red btn-xs pull-right" onclick="showDeleteModal(<?=$value['id'] ?>)"><i class="fa fa-trash"></i> Delete</button>
                   </div>
                 </div>
               </div>
@@ -120,6 +33,28 @@
           <!-- /.box -->
         </div>
         <!-- /.col -->
+        <!-- MODAL -->
+        <div class="modal fade" id="modal-delete">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Hapus kegiatan</h4>
+              </div>
+              <div class="modal-body">
+                <p>Apakah anda yakin ingin menghapus data ini?</p>
+              </div>
+              <div class="modal-footer" align="center">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                <button type="button" class="btn bg-red" onclick="deleteAction()"><i class="fa fa-trash"></i> Hapus</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+
       </div>
       <!-- /.row -->
     </section>
@@ -342,6 +277,31 @@
 <script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url(); ?>assets/AdminLTE/dist/js/demo.js"></script>
+
+<script type="text/javascript">
+  var my_id = undefined;
+   var urls = {
+      base: "<?=site_url(); ?>",
+      delete: "<?=site_url('galeri/delete_foto'); ?>",
+    }
+
+  function showDeleteModal(id) {
+    my_id = id;
+    $('#modal-delete').modal('show');
+  }
+
+  function deleteAction() {
+    $.get(urls.delete+'/'+my_id, function(res){
+      var results = JSON.parse(res);
+      $('#modal-delete').modal('hide');
+      if(results.success){
+        window.open(urls.base+'/galeri', '_self');
+      }else{
+        alert(results.error);
+      }
+    });
+  }
+</script>
 
 </body>
 </html>

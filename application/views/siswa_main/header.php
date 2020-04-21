@@ -88,10 +88,10 @@
         <li class="active treeview menu-open">
 
           <ul class="treeview-menu">
-
             <li <?=$this->uri->segment(1) == '' ? 'class="active"' : ''?>><a href="<?php echo base_url(); ?>"><i class="fa fa-edit text-red"></i> Kegiatan Utama</a></li>
             <!-- /.<li><a href="<?php echo base_url('')."index.php/versi"; ?>"><i class="fa fa-edit text-blue"></i> Tadarus</a></li>-->
-			<li <?=$this->uri->segment(1) == 'tadarus' ? 'class="active"' : ''?>><a href="<?php echo base_url('')."index.php/tadarus"; ?>"><i class="fa fa-edit text-blue"></i> Tadarus</a></li>
+			      <li <?=$this->uri->segment(1) == 'tadarus' ? 'class="active"' : ''?>><a href="<?php echo base_url('')."index.php/tadarus"; ?>"><i class="fa fa-edit text-blue"></i> Tadarus</a></li>
+            <li <?=$this->uri->segment(1) == 'galeri' ? 'class="active"' : ''?>><a href="<?php echo base_url('')."index.php/galeri"; ?>"><i class="fa fa-edit text-green"></i> Galeri Kegiatan</a></li>
           </ul>
         </li>
         
