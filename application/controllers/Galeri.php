@@ -122,4 +122,10 @@ class Galeri extends CI_Controller {
 
         echo json_encode($data);
     }
+
+    public function detail_foto($id)
+    {
+        $detail = $this->galeri_model->get_detail_foto($id);
+        echo json_encode($detail);
+    }
 }

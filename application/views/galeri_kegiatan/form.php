@@ -11,6 +11,7 @@
               <h3 class="box-title"><b>Form Tambah Kegiatan</p></b> </h3>
             </div>
             <div class="box-body">
+              <form method="post" action="" enctype="multipart/form-data" id="myform">
                 <div class="col-md-3"></div>
                 <div class="col-xs-12 col-md-6">
                   <div class="form-group row">
@@ -42,11 +43,18 @@
                   </div>
                 </div>
                 <div class="col-xs-12" align="center" style="margin-bottom: 3%; ">
-                  <div id="my_camera"></div>
-<!--                   <div class="hidden-">
-                    <input type="file" id="form_file" name="webcam" accept="image/*;capture=camera">
-                  </div> -->
+                  <div id="my_camera"></div><br/>
+                  <span style="font-size: 15px; font-weight: bold">Or</span>
+                  <div class="hidden-" style="margin-top: 13px;">
+                    <input style="
+                      border: 1px solid #ccc;
+                      padding: 5px;
+                      box-shadow: 3px 5px 11px -1px rgb(158, 158, 158);
+                      border-radius: 5px;
+                    " type="file" id="form_file" name="webcam" accept="image/*;capture=camera" onchange="changeFile()">
+                  </div>
                 </div>
+              </form>
             </div>
             <div class="box-footer">
               <div align="center">
@@ -295,48 +303,100 @@
       $('.btn-pre').show();
       $('.btn-post').hide();
 
-      Webcam.set({
-        // live preview size
-        width: 640,
-        height: 480,
-        
-        // device capture size
-        dest_width: 640,
-        dest_height: 480,
-        
-        // final cropped size
-        crop_width: 480,
-        crop_height: 480,
-        
-        // format and quality
-        image_format: 'jpeg',
-        jpeg_quality: 90,
-        
-        // flip horizontal (mirror mode)
-        flip_horiz: true
-      });
+
+      if(isMobileDevice()){
+        Webcam.set({
+          width: 640,
+          height: 400,
+          dest_width: 640,
+          dest_height: 400,
+          crop_width: 280,
+          crop_height: 400,
+          image_format: 'jpeg',
+          jpeg_quality: 90,
+          flip_horiz: true
+        });
+      }else{
+        Webcam.set({
+          width: 640,
+          height: 480,
+          dest_width: 640,
+          dest_height: 480,
+          crop_width: 100,
+          crop_height: 480,
+          image_format: 'jpeg',
+          jpeg_quality: 90,
+          flip_horiz: true
+        });
+      }
+
       Webcam.attach( '#my_camera' );
     });
 
     function cancel_preview() {
-      $.when(Webcam.unfreeze()).then(function(){
-        $('.btn-post').hide();
+      if(!isEmpty($('#form_file').val())){
+        $('#form_file').val('');
         $('.btn-pre').fadeIn();
-      });
+        $('.btn-post').hide();
+      }else{
+        $.when(Webcam.unfreeze()).then(function(){
+          $('.btn-post').hide();
+          $('.btn-pre').fadeIn();
+        });
+      }
     }
 
     function do_preview() {
-        Webcam.snap( function(data_uri) {
-          $.when(Webcam.freeze()).then(function(){
-            $('.btn-pre').hide();
-            $('.btn-post').fadeIn();
-          });
-
+      if(isMobileDevice()){
+        Webcam.set({
+          width: 300,
+          height: 400,
+          dest_width: 300,
+          dest_height: 400,
+          image_format: 'jpeg',
+          jpeg_quality: 90,
+          flip_horiz: true
         });
+      }
+
+      Webcam.snap( function(data_uri) {
+        $.when(Webcam.freeze()).then(function(){
+          $('.btn-pre').hide();
+          $('.btn-post').fadeIn();
+        });
+
+      });
     }
 
     function do_upload() {
-      
+      if(!isEmpty($('#form_file').val())){
+          var fd = new FormData();
+          var files = $('#form_file')[0].files[0];
+          fd.append('webcam',files);
+
+          var data = {
+            user: '1',
+            keterangan: $('#form_keterangan').val(),
+            waktu: $('#form_waktu').val(),
+          }   
+
+          $.ajax({
+              url: urls.save + '?' + $.param(data),
+              type: 'post',
+              data: fd,
+              contentType: false,
+              processData: false,
+              success: function(res){
+                results = JSON.parse(res);
+
+                if(results.success){
+                    window.open(urls.base+'/galeri', '_self');
+                }else{
+                    alert(results.error);
+                }
+              },
+          });
+      }else{
         Webcam.snap(function(data_uri){
           
           var data = {
@@ -360,11 +420,26 @@
             }
           });
         });
+      }
     }
 
     function isMobileDevice() {
         return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
     };
+
+    function changeFile() {
+      if(!isEmpty($('#form_file').val())){
+            $('.btn-pre').hide();
+            $('.btn-post').fadeIn();
+      }else{
+            $('.btn-pre').fadeIn();
+            $('.btn-post').hide();
+      }
+    }
+
+    function isEmpty(str) {
+        return ( (typeof(str) == "undefined") || (!str || /^\s*$/.test(str)) || parseInt(str) == 0 || str == null);
+    }
 
   </script>
 
