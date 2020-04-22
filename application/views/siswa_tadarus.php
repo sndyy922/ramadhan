@@ -8,56 +8,53 @@
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title"><b>Tabel Tadarus</p></b> </h3>
 			  <p id="time">
-			  <p> <center><b>Klik Tombol Update Setiap Kali Mengisi Data!!! </b></center></p>
+			  <p> <center><b>Klik Tombol Setor Tadarus Untuk Mengisi Data Tadarus Kamu!!! </b></center></p>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-				<tr>
-                  <th>Nama Surat</th>	
-				  <th>Tanggal</th>
-				  <th>Jam</th>					  
-				  <th>Mulai Ayat</th>
-				  <th>Selesai Ayat</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>             
-			
-                  <td><select class="form-control" id="nama_surat"">
-				  	<?php $no=1; foreach ($listsurat as $key => $surat):  ?>
-						<option value="<?php echo $surat['id'];?>"><?php echo $surat['nama_surat'];?> (<small><?php echo $surat['arti_nama'];?></small>)</option>
-					<?php  endforeach; ?>	   
-                  </select></td>
-                  <td><?php
-					$h = "17";// Hour for time zone goes here e.g. +7 or -4, just remove the + or -
-					$hm = $h * 60;
-					$ms = $hm * 60;
-					//$gmdate = gmdate("m/d/Y g:i:s A", time()-($ms)); // the "-" can be switched to a plus if that's what your time zone is.
-					$waktu = substr(gmdate("Y-m-d g:i:s A", time()-($ms)),0,10);
-					echo $waktu;?>
-					<input type="hidden" value ="<?php
-					$h = "17";// Hour for time zone goes here e.g. +7 or -4, just remove the + or -
-					$hm = $h * 60;
-					$ms = $hm * 60;
-					//$gmdate = gmdate("m/d/Y g:i:s A", time()-($ms)); // the "-" can be switched to a plus if that's what your time zone is.
-					$tgl = substr(gmdate("Y-m-d g:i:s A", time()-($ms)),0,10);
-					echo $tgl;?>"  id="tgl">
-				  </td>
-				  <td><input type="time" value = "00:00" id="jam"></td>
-				  <td><input type="number" id="dari"></td>
-				  <td><input type="number" id="sampaiayat"></td>
-                </tr> 				
-                </tbody>
-              </table>
-			  <button type="button" class="btn btn-block btn-warning" onclick="tambah_data()">Tambah</button>
+            <div class="box-body table-responsive no-padding">
+			<button type="button" class="btn btn-block btn-warning" data-toggle="modal" data-target="#myModal">Setor Tadarus</button>
+			  <div class="modal fade" id="myModal" role="dialog">
+				<div class="modal-dialog">
+				
+				  <!-- Modal content-->
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal">&times;</button>
+					  <h4 class="modal-title"><center><b>Harap Isi Data Dengan Jujur!!!</b></center></h4>
+					</div>
+					<div class="modal-body">
+					  <form>
+					  <table id="example1" class="table table-bordered table-striped">
+						<tbody>            
+						  Surat : <select class="form-control" id="nama_surat">
+							<?php $no=1; foreach ($listsurat as $key => $surat):  ?>
+								<option value="<?php echo $surat['id'];?>"><?php echo $surat['nama_surat'];?> (<small><?php echo $surat['arti_nama'];?></small>)</option>
+							<?php  endforeach; ?></select>	   
+						  </br>
+						  Tanggal : <input class="form-control" type="date" id="tgl" required>
+						  </br>
+						  Mulai Ayat : <input class="form-control" type="number" id="dari" required></br>
+						  Selesai Ayat : <input class="form-control" type="number" id="sampaiayat" required></br>			
+						</tbody>
+					  </table>
+					  <button type="submit" class="btn btn-block btn-info" onclick="tambah_data()">Tambah</button>
+					  <button type="button" class="btn btn-block btn-danger" data-dismiss="modal">Batal</button>
+					</form>
+					</div>
+					<!-- /.<div class="modal-footer">
+					  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>-->
+				  </div>
+				  
+				</div>
+			  </div>
+			<!-- /.<button type="button" class="btn btn-block btn-warning" odata-toggle="modal" data-target="#modal-default">Tambah Tadarus</button>-->
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+		  
 		  <div class="box">
             <div class="box-header">
               <h3 class="box-title"><b>Riwayat Setoran</p></b> </h3>
@@ -68,8 +65,7 @@
                 <thead>
 				<tr>
                   <th>Nama Surat</th>	
-				  <th>Tanggal</th>				  
-				  <th>Jam</th>				  
+				  <th>Tanggal</th>				  		  
 				  <th>Mulai Ayat</th>
 				  <th>Selesai Ayat</th>
 				  <th>Aksi</th>
@@ -78,20 +74,18 @@
                 <tbody>
 					<?php $no=1; foreach ($tadarus as $key => $value):  ?>
 					   <tr>
-							<td><?php echo $value['nama_surat'];?></td>
+							<td><?php echo $value['surat'];?></td>
 							<td><?php echo $value['tgl'];?></td>
-							<td><?php echo $value['jam'];?></td>
 							<td><?php echo $value['dari'];?></td>
 							<td><?php echo $value['sampai'];?></td>
-							<td><?php echo $value['sampai'];?></td>
+							<td><button type="button" class="btn btn-info">Edit</button> <button type="button" class="btn btn-danger">Hapus</button> </td>
 					   </tr>
 					<?php  endforeach; ?>
 				</tbody>
                 <tfoot>
                 <tr>
 				  <th>Nama Surat</th>	
-				  <th>Tanggal</th>				  
-				  <th>Jam</th>				  
+				  <th>Tanggal</th>				  			  
 				  <th>Mulai Ayat</th>
 				  <th>Selesai Ayat</th>
 				  <th>Aksi</th>
@@ -99,11 +93,14 @@
                 </tfoot>
               </table>
             </div>
+				<!-- /.modal -->
             <!-- /.box-body -->
           </div>
         </div>
         <!-- /.col -->
+		
       </div>
+	<!-- Modal -->
       <!-- /.row -->
     </section>
     <!-- /.content -->
@@ -342,9 +339,9 @@
 	function tambah_data() {
 		var nama_surat = document.getElementById("nama_surat").value;
 		var tanggal = $('#tgl').val();
-		var jam= $('#jam').val();
+		var jam= "";
 		var suratke = document.getElementById("nama_surat").value;
-		var dariayat = document.getElementById("nama_surat").value;
+		var dariayat = document.getElementById("dari").value;
 		var sampaiayat = $('#sampaiayat').val();
 		//tgl,jam,suratke,dariayat,sampaiayat
 		$.ajax({
@@ -354,32 +351,22 @@
 			data     : 'nama_surat='+nama_surat+'&tanggal='+tanggal+'&jam='+jam+'&suratke='+suratke+'&dariayat='+dariayat+'&sampaiayat='+sampaiayat,
 			success  : function(respons){
 				//$('#pesan_kirim').html(respons);
-				$( "#example2" ).load( "<?php echo site_url('index.php/tadarus')?> #example2" );
+				$( "#tabel_tadarus" ).load( "<?php echo site_url('index.php/tadarus')?> #tabel_tadarus" );
 			},
 		})
 	}
 	
 
   $(function () {
-    $('#example1').DataTable({
-      'paging'      : false,
-      'lengthChange': false,
+    $('#tabel_tadarus').DataTable({
+      'paging'      : true,
+      'lengthChange': true,
       'searching'   : false,
       'ordering'    : false,
       'info'        : false,
       'autoWidth'   : false
     })
   })
-  $(function () {
-  $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : true,
-      'ordering'    : false,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-   })
    
 var timestamp = '<?=time();?>';
 function updateTime(){

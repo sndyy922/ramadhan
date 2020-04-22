@@ -70,7 +70,7 @@ input:checked + .slider:before {
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title"><b>Tabel Sholat Wajib</p></b> </h3>
+              <h3 class="box-title"><b>Kegiatan Wajib</p></b> </h3>
 			  <p id="time">
 			  <p> <center><b>Harap Isi Data Dengan Jujur!!! </b></center></p>
             </div>
@@ -79,17 +79,26 @@ input:checked + .slider:before {
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
 				<tr>
+				  <th>Tanggal</th>
                   <th>Kegiatan</th>
                   <th>Sudah</th>				                  
-                  <th>Tanggal</th>
-				  <th>Jam</th>
 				  <th>Haid</th>
                 </tr>
                 </thead>
                 <tbody>
 					<?php $no=1; foreach ($sholat as $key => $value): if($value['tipe']=='wajib'){ ?>
 					   <tr>
-						  <td><?php echo $value['sholat'];?></td>
+						  <td><?php echo $value['waktu'];?></td>
+						  
+						  
+						  
+						  
+						  <td><?php $cek_s = $value['sholat'];
+						  if($cek_s=="Puasa"){
+							  echo "<b>".$value['sholat']."</b>";
+						  }else{
+							  echo "Sholat ".$value['sholat'];
+						  }?></td>
 						  <?php $status = $value['status'];
 						  $haid = $value['haid'];
 						  if ($status==1){
@@ -102,10 +111,7 @@ input:checked + .slider:before {
 							  <?php }else{?>
 								  <td><input type="checkbox" name="sholat_chb" id="chb<?php echo $value['id_activity'];?>"  onclick="checkbox(<?php echo $value['id_activity'];?>, <?php echo $value['status'];?>,'<?php echo $value['sholat'];?>');"> </td>
 							  
-						  <?php } } ?>
-						  <td><?php echo $value['waktu'];?></td>
-						  <td><input class="form-control" type="time" name="time" id="time" value="<?php echo $value['jam'];?>" onchange="jam(event,<?php echo $value['id_activity'];?>)"></td>
-						   <?php
+						  <?php } }
 						  
 						  if ($haid==1){
 						  ?>
@@ -125,15 +131,6 @@ input:checked + .slider:before {
 					   </tr>
 					<?php } endforeach; ?>
 				</tbody>
-                <tfoot>
-                <tr>
-                  <th>Kegiatan</th>
-                  <th>Sudah</th>
-				   <th>Tanggal</th>
-				   <th>Jam</th>
-				   <th>Haid</th>
-                </tr>
-                </tfoot>
               </table>
 			  <!-- /.<button type="button" class="btn btn-block btn-info">Update</button> -->
             </div>
@@ -142,7 +139,7 @@ input:checked + .slider:before {
 		  
 		  <div class="box">
             <div class="box-header">
-              <h3 class="box-title"><b>Tabel Sholat Sunnah</p></b> </h3>
+              <h3 class="box-title"><b>Kegiatan Sunnah</p></b> </h3>
 			  <p id="time">
 			  <p> <center><b>Harap Isi Data Dengan Jujur!!! </b></center></p>
             </div>
@@ -151,16 +148,16 @@ input:checked + .slider:before {
               <table id="example2" class="table table-bordered table-striped">
                 <thead>
 				<tr>
+				  <th>Tanggal</th>
                   <th>Kegiatan</th>
                   <th>Sudah</th>				                  
-                  <th>Tanggal</th>
-				  <th>Jam</th>
                 </tr>
                 </thead>
                 <tbody>
 					<?php $no=1; foreach ($sholat as $key => $value): if($value['tipe']=='sunnah'){ ?>
 					   <tr>
-						  <td><?php echo $value['sholat'];?></td>
+						  <td><?php echo $value['waktu'];?></td>
+						  <td>Sholat <?php echo $value['sholat'];?></td>
 						  <?php $status = $value['status'];
 						  $haid = $value['haid'];
 						  if ($status==1){
@@ -174,18 +171,15 @@ input:checked + .slider:before {
 								  <td><input type="checkbox" name="sholat_chb" id="chb<?php echo $value['id_activity'];?>"  onclick="checkbox(<?php echo $value['id_activity'];?>, <?php echo $value['status'];?>,'<?php echo $value['sholat'];?>');"> </td>
 							  
 						  <?php } } ?>
-						  <td><?php echo $value['waktu'];?></td>
-						  <td><input class="form-control" type="time" name="time" id="time" value="<?php echo $value['jam'];?>" onchange="jam(event,<?php echo $value['id_activity'];?>)"></td>
-
+						  
 					   </tr>
 					<?php } endforeach; ?>
 				</tbody>
                 <tfoot>
                 <tr>
+			      <th>Tanggal</th>
                   <th>Kegiatan</th>
                   <th>Sudah</th>
-				   <th>Tanggal</th>
-				   <th>Jam</th>
                 </tr>
                 </tfoot>
               </table>
@@ -433,18 +427,31 @@ input:checked + .slider:before {
 <script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
- myfunc();
 var table_sholat = $('#example1').DataTable({
       'paging'      : true,
       'lengthChange': true,
       'searching'   : false,
       'ordering'    : false,
       'info'        : false,
-      'autoWidth'   : false
+      'autoWidth'   : true,
+	  "lengthMenu": [[6, 12, 18, -1], [6, 12, 24, "All"]],
+	  "pageLength": 6
+    })
+	
+	var table_sunnah = $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : false,
+      'ordering'    : false,
+      'info'        : false,
+      'autoWidth'   : true,
+	  "lengthMenu": [[4, 8, 12, -1], [3, 6, 12, "All"]],
+	  "pageLength": 4
     })
 	
 	function jam(e,id) {
-        var jam = e.target.value;
+       // var jam = e.target.value;
+        var jam = "";
 		var id_act = id;
 	$.ajax({
 			url	     : '<?php echo site_url('welcome/update_jam_sholat')?>',

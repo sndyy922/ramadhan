@@ -5,6 +5,8 @@ class Sholat_model extends CI_Model {
 
 	public function get_list_sholat($user)
 	{
+		$this->db->order_by('waktu', 'DESC');
+		$this->db->order_by('kegiatan', 'ASC');
 		$this->db->select([
 			'tbl_sholat.name as sholat',
 			'tbl_sholat.type as tipe',
@@ -18,7 +20,20 @@ class Sholat_model extends CI_Model {
 		->from('tbl_sholat')
 		->join('tbl_activity_sholat', 'tbl_sholat.id = tbl_activity_sholat.kegiatan', 'left')
 		->where('tbl_activity_sholat.user', $user)
-		->where('tbl_activity_sholat.waktu = CURDATE()')
+		//->where('tbl_activity_sholat.waktu = CURDATE()')
+		;
+		
+		$q = $this->db->get();
+
+		return $q->result_array();
+	}
+	public function get_db_sholat()
+	{
+		$this->db->select([
+			'tbl_sholat.name as sholat',
+			'tbl_sholat.type as tipe',
+		])
+		->from('tbl_sholat')
 		;
 		
 		$q = $this->db->get();
