@@ -9,11 +9,11 @@
           <div class="box">
             <div class="box-header">
 			  <p id="time">
-			  <p> <center><b>Klik Tombol Setor Tadarus Untuk Mengisi Data Tadarus Kamu!!! </b></center></p>
+			  <p> <center><b>Klik Tombol Tambah Untuk Mengisi Data Ceramah Yang Telah Kamu Tonton!!! </b></center></p>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-			<button type="button" class="btn btn-block btn-warning" data-toggle="modal" data-target="#myModal">Setor Tadarus</button>
+			<button type="button" class="btn btn-block btn-warning" data-toggle="modal" data-target="#myModal">Tambah</button>
 			  <div class="modal fade" id="myModal" role="dialog">
 				<div class="modal-dialog">
 				
@@ -26,16 +26,13 @@
 					<div class="modal-body">
 					  <form>
 					  <table id="example1" class="table table-bordered table-striped">
-						<tbody>            
-						  Surat : <select class="form-control" id="nama_surat">
-							<?php $no=1; foreach ($listsurat as $key => $surat):  ?>
-								<option value="<?php echo $surat['id'];?>"><?php echo $surat['nama_surat'];?> (<small><?php echo $surat['arti_nama'];?></small>)</option>
-							<?php  endforeach; ?></select>	   
+						<tbody> 
+						  Jam : <input class="form-control" type="time" id="jam" required>
 						  </br>
-						  Tanggal : <input class="form-control" type="date" id="tgl" required>
-						  </br>
-						  Mulai Ayat : <input class="form-control" type="number" id="dari" required></br>
-						  Selesai Ayat : <input class="form-control" type="number" id="sampaiayat" required></br>			
+						  Channel TV : <input class="form-control" type="text" id="chanel" required>
+						  </br>				  
+						  Nama Penceramah : <input class="form-control" type="text" id="penceramah" required></br>
+						  Topik Ceramah : <input class="form-control" type="text" id="topik" required></br>			
 						</tbody>
 					  </table>
 					  <button type="submit" class="btn btn-block btn-info" onclick="tambah_data()">Tambah</button>
@@ -48,7 +45,6 @@
 				  </div>
 				  
 				</div>
-
 			  </div>
 			  <div class="modal fade" id="modal_hapus" role="dialog">
 			  
@@ -80,39 +76,43 @@
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+		  
 		  <div class="box">
             <div class="box-header">
-              <h3 class="box-title"><b>Riwayat Setoran</p></b> </h3>
+              <h3 class="box-title"><b>Riwayat Menonton</p></b> </h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="tabel_tadarus" class="table table-bordered table-striped">
                 <thead>
 				<tr>
-                  <th>Nama Surat</th>	
-				  <th>Tanggal</th>				  		  
-				  <th>Mulai Ayat</th>
-				  <th>Selesai Ayat</th>
+                  <th>Tanggal</th>
+				  <th>Jam</th>				  
+				  <th>Channel TV</th>				  		  
+				  <th>Nama Penceramah</th>
+				  <th>Topik</th>
 				  <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
-					<?php $no=1; foreach ($tadarus as $key => $value):  ?>
+					<?php $no=1; foreach ($ceramah as $key => $value):  ?>
 					   <tr>
-							<td><?php echo $value['surat'];?></td>
 							<td><?php echo $value['tgl'];?></td>
-							<td><?php echo $value['dari'];?></td>
-							<td><?php echo $value['sampai'];?></td>
-							<td><button type="button" class="btn btn-danger" onclick="hapus(<?php echo $value['id_tadarus'];?>);">Hapus</button> </td>
+							<td><?php echo $value['jam'];?></td>
+							<td><?php echo $value['chanel'];?></td>
+							<td><?php echo $value['nama_penceramah'];?></td>
+							<td><?php echo $value['topik'];?></td>
+							<td><button type="button" class="btn btn-danger" onclick="hapus(<?php echo $value['id'];?>);">Hapus</button> </td>
 					   </tr>
 					<?php  endforeach; ?>
 				</tbody>
                 <tfoot>
                 <tr>
-				  <th>Nama Surat</th>	
-				  <th>Tanggal</th>				  			  
-				  <th>Mulai Ayat</th>
-				  <th>Selesai Ayat</th>
+				  <th>Tanggal</th>	
+				  <th>Jam</th>
+				  <th>Chanel TV</th>				  		  
+				  <th>Nama Penceramah</th>
+				  <th>Topik</th>
 				  <th>Aksi</th>
                 </tr>
                 </tfoot>
@@ -367,18 +367,17 @@
 		$('#modal_hapus').modal('show'); 
 	}
 	function tambah_data() {
-		var nama_surat = document.getElementById("nama_surat").value;
-		var tanggal = $('#tgl').val();
-		var jam= "";
-		var suratke = document.getElementById("nama_surat").value;
-		var dariayat = document.getElementById("dari").value;
-		var sampaiayat = $('#sampaiayat').val();
+		
+		var jam = document.getElementById("jam").value;
+		var chanel = $('#chanel').val();
+		var penceramah = document.getElementById("penceramah").value;
+		var topik = document.getElementById("topik").value;
 		//tgl,jam,suratke,dariayat,sampaiayat
 		$.ajax({
-			url	     : '<?php echo site_url('tadarus/tambah')?>',
+			url	     : '<?php echo site_url('ceramah/tambah')?>',
 			type     : 'POST',
 			dataType : 'html',
-			data     : 'nama_surat='+nama_surat+'&tanggal='+tanggal+'&jam='+jam+'&suratke='+suratke+'&dariayat='+dariayat+'&sampaiayat='+sampaiayat,
+			data     : 'jam='+jam+'&chanel='+chanel+'&penceramah='+penceramah+'&topik='+topik,
 			success  : function(respons){
 				//$('#pesan_kirim').html(respons);
 				$( "#tabel_tadarus" ).load( "<?php echo site_url('index.php/tadarus')?> #tabel_tadarus" );
@@ -389,7 +388,7 @@
 		var id_hapus = document.getElementById("id_hapus").value;
 		//tgl,jam,suratke,dariayat,sampaiayat
 		$.ajax({
-			url	     : '<?php echo site_url('tadarus/hapus')?>',
+			url	     : '<?php echo site_url('ceramah/hapus')?>',
 			type     : 'POST',
 			dataType : 'html',
 			data     : 'id_hapus='+id_hapus,
@@ -399,7 +398,6 @@
 			},
 		})
 	}
-	
 
   $(function () {
     $('#tabel_tadarus').DataTable({

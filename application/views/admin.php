@@ -70,9 +70,9 @@ input:checked + .slider:before {
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title"><b>Tabel Sholat Wajib</p></b> </h3>
+              <h3 class="box-title"><b>Halaman Admin</p></b> </h3>
 			  <p id="time">
-			  <p> <center><b>Halaman Admin </b></center></p>
+			  <p> <center><b>Tabel Siswa </b></center></p>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Tadarus extends CI_Controller {
+class Ceramah extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,29 +20,29 @@ class Tadarus extends CI_Controller {
 	 */
 	public function __construct(){
 		parent::__construct();
-		$this->load->model('tadarus_model');
+		$this->load->model('ceramah_model');
 	}
 	public function index()
 	{
 		$user = 1;
-		$data['tadarus'] = $this->tadarus_model->get_list_tadarus($user);
-		$data['listsurat'] = $this->tadarus_model->get_list_sholat();
+		$data['ceramah'] = $this->ceramah_model->get_list_tadarus($user);
 		$this->load->view('siswa_main/header',$data);
-		$this->load->view('siswa_tadarus',$data);
+		$this->load->view('siswa_ceramah',$data);
+		
 	}
 	function tambah(){
-		$id=1;
-       $nama_surat=$this->input->post('nama_surat');
-	   $tanggal=$this->input->post('tanggal');
-	   $suratke=$this->input->post('suratke');
-	   $dariayat=$this->input->post('dariayat');
-	   $sampaiayat=$this->input->post('sampaiayat');
-	   $this->db->query("INSERT INTO tbl_tadarus VALUES ('', '$id', '$nama_surat', '$surat_ke', '$dariayat', '$sampaiayat', '$tanggal', '$sampaiayat');");
-	   
+		//jam,chanel,penceramah,topik
+	   $today = date("Y-m-d");
+	   $id=1;
+       $jam=$this->input->post('jam');
+	   $chanel=$this->input->post('chanel');
+	   $penceramah=$this->input->post('penceramah');
+	   $topik=$this->input->post('topik');
+	   $this->db->query("INSERT INTO tbl_ceramah VALUES ('', '$id', '$today', '$chanel', '$penceramah', '$topik', '$jam');");
     }
 	function hapus(){
        $id_hapus=$this->input->post('id_hapus');
-	   $this->db->query("DELETE FROM tbl_tadarus WHERE tbl_tadarus.id='$id_hapus';");
+	   $this->db->query("DELETE FROM tbl_ceramah WHERE tbl_ceramah.id='$id_hapus';");
 	   
     }
 }
