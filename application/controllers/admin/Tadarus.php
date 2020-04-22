@@ -26,7 +26,6 @@ class Tadarus extends CI_Controller {
 	{
 		$user = 1;
 		$data['tadarus'] = $this->tadarus_model->get_list_tadarus($user);
-		$data['listsurat'] = $this->tadarus_model->get_list_sholat();
 		$this->load->view('siswa_main/header',$data);
 		$this->load->view('siswa_tadarus',$data);
 	}
