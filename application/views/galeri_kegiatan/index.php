@@ -1,4 +1,3 @@
-  <div class="content-wrapper">
   <style type="text/css">
     .img-kegiatan{
         width: 95%;
