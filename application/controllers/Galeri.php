@@ -13,8 +13,6 @@ class Galeri extends CI_Controller {
 	{
 		
 		$d['data'] = $this->galeri_model->get_list_foto(1);
-		$this->load->view('siswa_main/header',$d);
-        $this->load->view('galeri_kegiatan/index',$d);
         $this->load->view('siswa_main/header',$d);
         $this->load->view('galeri_kegiatan/index');
 	}
@@ -22,7 +20,6 @@ class Galeri extends CI_Controller {
 	public function form()
 	{
 		$d['data'] = $this->galeri_model->get_list_foto(1);
-		$this->load->view('siswa_main/header',$d);
         $d['now'] = date('Y-m-d H:i:s');
         $this->load->view('siswa_main/header', $d);
         $this->load->view('galeri_kegiatan/form');

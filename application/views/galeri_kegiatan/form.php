@@ -1,4 +1,3 @@
-<div class="content-wrapper">
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
 
@@ -306,6 +305,7 @@
 
 
       if(isMobileDevice()){
+        console.log('mobile');
         Webcam.set({
           width: 640,
           height: 400,
@@ -318,13 +318,12 @@
           flip_horiz: true
         });
       }else{
+        console.log('pc');
         Webcam.set({
           width: 640,
           height: 480,
           dest_width: 640,
           dest_height: 480,
-          crop_width: 100,
-          crop_height: 480,
           image_format: 'jpeg',
           jpeg_quality: 90,
           flip_horiz: true
