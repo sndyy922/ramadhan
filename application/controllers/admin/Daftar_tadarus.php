@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Tadarus extends CI_Controller {
+class Daftar_tadarus extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -26,7 +26,7 @@ class Tadarus extends CI_Controller {
 	{
 		$user = 1;
 		$data['tadarus'] = $this->tadarus_model->get_list_tadarus($user);
-		$this->load->view('siswa_main/header',$data);
+		$this->load->view('admin_main/header',$data);
 		$this->load->view('siswa_tadarus',$data);
 	}
 	function tambah(){
