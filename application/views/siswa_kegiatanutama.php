@@ -89,10 +89,6 @@ input:checked + .slider:before {
 					<?php $no=1; foreach ($sholat as $key => $value): if($value['tipe']=='wajib'){ ?>
 					   <tr>
 						  <td><?php echo $value['waktu'];?></td>
-						  
-						  
-						  
-						  
 						  <td><?php $cek_s = $value['sholat'];
 						  if($cek_s=="Puasa"){
 							  echo "<b>".$value['sholat']."</b>";
@@ -477,7 +473,7 @@ var table_sholat = $('#example1').DataTable({
 			data     : 'id_act='+id_act+'&status='+status+'&sholat='+sholat,
 			success  : function(respons){
 				//$('#pesan_kirim').html(respons);
-				$( "#example1" ).load( "<?php echo site_url()?> #example1" );
+				//$( "#example1" ).load( "<?php echo site_url()?> #example1" );
 			},
 		})
 		}else{
@@ -488,7 +484,7 @@ var table_sholat = $('#example1').DataTable({
 			data     : 'id_act='+id_act+'&status='+status+'&sholat='+sholat,
 			success  : function(respons){
 				//$('#pesan_kirim').html(respons);
-				$( "#example1" ).load( "<?php echo site_url()?> #example1" );
+				//$( "#example1" ).load( "<?php echo site_url()?> #example1" );
 			},
 		})
 		}
@@ -507,7 +503,7 @@ var table_sholat = $('#example1').DataTable({
 			data     : 'id_act='+id_act+'&status='+status+'&sholat='+sholat,
 			success  : function(respons){
 				//$('#pesan_kirim').html(respons);
-				$( "#example1" ).load( "<?php echo site_url()?> #example1" );
+				//$( "#example1" ).load( "<?php echo site_url()?> #example1" );
 			},
 		})
 		$("#chb"+id_act).prop('disabled', false);
@@ -519,7 +515,7 @@ var table_sholat = $('#example1').DataTable({
 			data     : 'id_act='+id_act+'&status='+status+'&sholat='+sholat,
 			success  : function(respons){
 				//$('#pesan_kirim').html(respons);
-				$( "#example1" ).load( "<?php echo site_url()?> #example1" );
+				//$( "#example1" ).load( "<?php echo site_url()?> #example1" );
 			},
 		})
 		$("#chb"+id_act).prop('disabled', true);

@@ -20,17 +20,17 @@ class Welcome extends CI_Controller {
 			$this->load->view('siswa_kegiatanutama',$data);
 		}else{
 			$today = date("Y-m-d");
-			$query_tambah1 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '', '0', '0','0')");
-			$query_tambah6 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','5', '0','0')");
-			$query_tambah7 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','4', '0','0')");
-			$query_tambah8 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','3', '0','0')");
-			$query_tambah9 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','2', '0','0')");
-			$query_tambah10 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','1', '0','0')");
-			$query_tambah1 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '',  '10', '0','0')");
-			$query_tambah2 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','9', '0','0')");
-			$query_tambah2 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','8', '0','0')");
-			$query_tambah4 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','7', '0','0')");
-			$query_tambah5 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','6', '0','0')");
+			//$query_tambah1 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '', '0', '0','0')");
+			$query_tambah1 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','1', '0','0')");
+			$query_tambah2 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','2', '0','0')");
+			$query_tambah3 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','3', '0','0')");
+			$query_tambah4 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','4', '0','0')");
+			$query_tambah5 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','5', '0','0')");
+			$query_tambah6 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','6', '0','0')");
+			$query_tambah7 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '',  '7', '0','0')");
+			$query_tambah8 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','8', '0','0')");		
+			$query_tambah9 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','9', '0','0')");
+			$query_tambah10 =  $this->db->query("Insert INTO tbl_activity_sholat VALUES ('', '$user', '$today', '','10', '0','0')");
 			
 			$data['sholat'] = $this->sholat_model->get_list_sholat($user);
 			$this->load->view('siswa_main/header',$data);
