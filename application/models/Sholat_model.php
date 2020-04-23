@@ -20,7 +20,7 @@ class Sholat_model extends CI_Model {
 		->from('tbl_sholat')
 		->join('tbl_activity_sholat', 'tbl_sholat.id = tbl_activity_sholat.kegiatan', 'left')
 		->where('tbl_activity_sholat.user', $user)
-		//->where('tbl_activity_sholat.waktu = CURDATE()')
+		// ->where('tbl_activity_sholat.waktu = CURDATE()')
 		;
 		
 		$q = $this->db->get();
@@ -55,4 +55,61 @@ class Sholat_model extends CI_Model {
         $result=$this->db->update('tbl_activity_sholat');
         return $result;
     }
+
+    function get_list_activity(){
+    	return $this->db->get('tbl_sholat')->result_array();
+    }
+
+    function get_list_activity_per_date($user)
+    {
+
+		$list_activity = $this->get_list_activity();
+		$select = [];
+
+		foreach ($list_activity as $key => $value) {
+			$select[] = 'MAX(CASE WHEN kegiatan = '.$value['id'].' THEN IF(haid = 1, 2, status) END) as '.$value['name'];	
+		}
+
+		$this->db->select([
+			'waktu',
+		])
+		->select($select)
+		->from('tbl_activity_sholat')
+		->where('user', $user)
+		->group_by('waktu')
+    	->order_by('waktu');
+		;
+
+		$q = $this->db->get()->result_array();
+		return $q;
+    }
+
+    public function get_list_tadarus($user)
+    {
+    	$this->db->select('
+    		tbl_tadarus.id,
+    		tbl_tadarus.tgl,
+    		CONCAT(tbl_surat.Nama_surat, " (", tbl_surat.Arti_nama, ")") as name,
+    		tbl_tadarus.dari,
+    		tbl_tadarus.sampai,
+    	')
+    	->from('tbl_tadarus')
+    	->join('tbl_surat','tbl_tadarus.nama_surat = tbl_surat.id', 'left')
+    	->where('tbl_tadarus.user', $user)
+    	->order_by('tbl_tadarus.tgl');
+    	;
+
+    	$q = $this->db->get()->result_array();
+		return $q;
+    }
+
+	public function get_list_galeri($user)
+	{
+		return $this->db->order_by('waktu', 'DESC')->get_where('tbl_foto',['user'=>$user])->result_array();
+	}
+
+	public function get_list_ceramah($user)
+	{
+		return $this->db->order_by('tgl', 'ASC')->get_where('tbl_ceramah',['id_user'=>$user])->result_array();
+	}
 }

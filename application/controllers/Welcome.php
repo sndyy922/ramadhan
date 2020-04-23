@@ -14,7 +14,6 @@ class Welcome extends CI_Controller {
 		$today = date("Y-m-d");
 		$cek_data = $this->db->query("select * from tbl_activity_sholat where tbl_activity_sholat.user='$user' and tbl_activity_sholat.waktu = '$today'");
 		$cek_hasil = $cek_data->num_rows();
-		
 		if($cek_hasil>0){
 			$data['sholat'] = $this->sholat_model->get_list_sholat($user);
 			$this->load->view('siswa_main/header',$data);

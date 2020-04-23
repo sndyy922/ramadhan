@@ -1,115 +1,76 @@
-  <style type="text/css">
-    .img-kegiatan{
-        width: 95%;
-        height: 250px;
-        object-fit: cover;
-    }
-  </style>
-  <div class="content-wrapper">
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
-
     <!-- Main content -->
     <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
+		  <div class="row">
+	    	  <div class="col-xs-12">
+		        <!-- Box Comment -->
+		        <div class="box box-widget" style="border-radius: 5px;">
+		          <!-- /.box-header -->
+		          <div class="box-body" style="padding-bottom: 3%;">
+		          	<h4>Detail Siswa</h4><hr/>
+		          	<div>
+			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; width: 120px;">Nama</div>
+			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 2%;">:</div>
+			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 1%;" >Nama Siswa</div>
+			        </div>
+			        <div>
+			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; width: 120px;">NIS</div>
+			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 2%;">:</div>
+			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 1%;" >Nama Siswa</div>
+			        </div>
+			        <div>
+			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; width: 120px;">Kelas</div>
+			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 2%;">:</div>
+			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 1%;" >Nama Siswa</div>
+			        </div>
+			        <div>
+			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; width: 120px;">Jenis Kelamin</div>
+			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 2%;">:</div>
+			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 1%;" >Nama Siswa</div>
+			        </div>
+		          </div>
+		        </div>
+		      </div>
+		  </div>
+    	<div class="row">
+	    	<div class="col-xs-12">
+	          <!-- Custom Tabs -->
+	          	<div class="nav-tabs-custom">
+		            <ul class="nav nav-tabs">
+		              <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Kegiatan Utama</a></li>
+		              <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Setoran Tadarus</a></li>
+		              <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Catatan Ceramah</a></li>
+		              <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Galeri Kegiatan</a></li>
+		            </ul>
+		            <div class="tab-content">
+		              <div class="tab-pane active" id="tab_1">
+		              	<?php $this->load->view('detail/kegiatan'); ?>
+		              <!-- /.tab-pane -->
+	          		  </div>
+		              <div class="tab-pane" id="tab_2">
+		              	<?php $this->load->view('detail/tadarus'); ?>
+		              </div>
+		              <!-- /.tab-pane -->
+		              <div class="tab-pane" id="tab_3">
+		              	<?php $this->load->view('detail/ceramah'); ?>
+		              </div>
+		              <!-- /.tab-pane -->
+		              <div class="tab-pane" id="tab_4">
+		              	<?php $this->load->view('detail/galeri'); ?>
+		              </div>
+		              <!-- /.tab-pane -->
+		            </div>
+	            <!-- /.tab-content -->
+	          	</div>
+	          <!-- nav-tabs-custom -->
+	        </div>
+		</div>
+	</section>
 
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title"><b>Galeri Kegiatan</p></b> </h3>
-              <a href="<?=site_url('galeri/form')?>" target="_blank" class="btn btn-info pull-right"><i class="fa fa-plus"></i> Tambah Foto</a>
-            </div>
-          </div>
+</div>
 
-          <div class="col-xs-12">
-          	<?php foreach ($data as $key => $value): ?>
-              <div class="col-xs-12 col-md-3">
-                <!-- Box Comment -->
-                <div class="box box-widget" style="height: 100%!important;">
-                  <!-- /.box-header -->
-                  <div class="box-body">
-                    <span><?=$value['waktu'] ?></span><br/><br/>
-                    <center>
-                      <img class="img-kegiatan" onclick="showDetail(<?=$value['id'] ?>)" class="img-responsive pad" src="<?=base_url('assets/upload/').$value['foto']?>" alt="Photo"><hr/>
-                    </center>
-                    <p><?php echo !empty($value['keterangan'])? $value['keterangan'] : '-'; ?></p>
-                    <button type="button" class="btn bg-red btn-xs pull-right" onclick="showDeleteModal(<?=$value['id'] ?>)"><i class="fa fa-trash"></i> Delete</button>
-                  </div>
-                </div>
-              </div>
-          	<?php endforeach; ?>
-              <!-- /.box -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-        <!-- MODAL -->
-        <div class="modal fade" id="modal-delete">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Hapus kegiatan</h4>
-              </div>
-              <div class="modal-body">
-                <p>Apakah anda yakin ingin menghapus data ini?</p>
-              </div>
-              <div class="modal-footer" align="center">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn bg-red" onclick="deleteAction()"><i class="fa fa-trash"></i> Hapus</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-
-        </div>
-
-        <div class="modal fade" id="modal-detail">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Detail kegiatan</h4>
-              </div>
-              <div class="modal-body">
-                <div>
-                  <div style="display: inline-block!important; font-size: 15px; font-weight: bold; width: 100px;">Keterangan</div>
-                  <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 2%;">:</div>
-                  <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 1%;" id="det_keterangan"></div>
-                </div>
-                <div>
-                  <div style="display: inline-block!important; font-size: 15px; font-weight: bold; width: 100px;">Waktu</div>
-                  <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 2%;">:</div>
-                  <div style="display: inline-block!important; font-size: 15px; font-weight: bold;" id="det_waktu"></div>
-                </div>
-                <div>
-                  <div style="display: inline-block!important; font-size: 15px; font-weight: bold; width: 100px;">Foto</div>
-                  <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 2%;">:</div>
-                  <div align="center"><br/>
-                    <img id="det_foto" src="#" style="width: 95%" />
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer" align="center">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-
-        </div>
-
-      </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
-  <footer class="main-footer">
+<footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
@@ -320,53 +281,20 @@
 <script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url(); ?>assets/AdminLTE/dist/js/adminlte.min.js"></script>
+<!-- Sparkline -->
+<script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<!-- jvectormap  -->
+<script src="<?php echo base_url(); ?>assets/AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/AdminLTE/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
 <!-- SlimScroll -->
 <script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- ChartJS -->
+<script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/chart.js/Chart.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="<?php echo base_url(); ?>assets/AdminLTE/dist/js/pages/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url(); ?>assets/AdminLTE/dist/js/demo.js"></script>
 
-<script type="text/javascript">
- var my_id = undefined;
- var urls = {
-    base: "<?=site_url(); ?>",
-    delete: "<?=site_url('galeri/delete_foto'); ?>",
-    detail: "<?=site_url('galeri/detail_foto'); ?>",
-    upload_dir: "<?=base_url('assets/upload/'); ?>",
-  }
-
-  function showDeleteModal(id) {
-    my_id = id;
-    $('#modal-delete').modal('show');
-  }
-
-  function deleteAction() {
-    $.get(urls.delete+'/'+my_id, function(res){
-      var results = JSON.parse(res);
-      $('#modal-delete').modal('hide');
-      if(results.success){
-        window.open(urls.base+'/galeri', '_self');
-      }else{
-        alert(results.error);
-      }
-    });
-  }
-
-  function showDetail(id){
-    $.get(urls.detail+'/'+id, function(res){
-      var results = JSON.parse(res);
-
-      $('#det_keterangan').text(!isEmpty(results.keterangan)?results.keterangan:'-');
-      $('#det_waktu').text(results.waktu);
-      $('#det_foto').attr('src', urls.upload_dir+results.foto);
-
-      $('#modal-detail').modal('show');
-    });
-  }
-
-  function isEmpty(str) {
-      return ( (typeof(str) == "undefined") || (!str || /^\s*$/.test(str)) || parseInt(str) == 0 || str == null);
-  }
-</script>
-
-</body>
-</html>
+<!-- DataTables -->
+<script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
