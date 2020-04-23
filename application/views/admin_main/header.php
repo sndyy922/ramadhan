@@ -88,11 +88,11 @@
         <li class="active treeview menu-open">
 
           <ul class="treeview-menu">
-            <li <?=$this->uri->segment(1) == 'admin' ? 'class="active"' : ''?>><a href="<?php echo base_url('')."index.php/admin"; ?>"><i class="fa fa-edit text-red"></i> Daftar Siswa</a></li>
+            <li <?=$this->uri->segment(1) == 'admin' ? 'class=""' : ''?>><a href="<?php echo base_url('')."index.php/admin"; ?>"><i class="fa fa-edit text-red"></i> Daftar Siswa</a></li>
             <!-- /.<li><a href="<?php echo base_url('')."index.php/admin/versi"; ?>"><i class="fa fa-edit text-blue"></i> Tadarus</a></li>-->
 			
-			<li <?=$this->uri->segment(1) == 'admin/daftar_sholat' ? 'class="active"' : ''?>><a href="<?php echo base_url('')."index.php/admin/daftar_sholat"; ?>"><i class="fa fa-edit text-blue"></i> Daftar Sholat</a></li>
-			<li <?=$this->uri->segment(1) == 'admin/daftar_tadarus' ? 'class="active"' : ''?>><a href="<?php echo base_url('')."index.php/admin/daftar_tadarus"; ?>"><i class="fa fa-edit text-yellow"></i> Daftar Tadarus Siswa</a></li>
+			<li <?=$this->uri->segment(1) == 'admin/manajemen_user' ? 'class=""' : ''?>><a href="<?php echo base_url('')."index.php/admin/manajemen_user"; ?>"><i class="fa fa-edit text-blue"></i> Manajemen User</a></li>
+			<li <?=$this->uri->segment(1) == 'admin/daftar_tadarus' ? 'class=""' : ''?>><a href="<?php echo base_url('')."index.php/admin/daftar_tadarus"; ?>"><i class="fa fa-edit text-yellow"></i> Daftar Tadarus Siswa</a></li>
 			
           </ul>
         </li>

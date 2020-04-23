@@ -7,29 +7,6 @@ class Admin_model extends CI_Model {
 	{
 		return $this->db->get_where('tbl_foto',['user'=>$user])->result_array();
 	}
-
-	/*public function get_list_kegiatan_sholat()
-	{
-		//SELECT tbl_siswa.id as id_siswa, tbl_siswa.name as nama, tbl_siswa.nis as nis_siswa, tbl_siswa.kelas as kelas, tbl_siswa.kelamin as kelamin, count(tbl_activity_sholat.kegiatan) as jml_sholat, tbl_activity_sholat.haid FROM tbl_siswa left  join tbl_activity_sholat on tbl_siswa.id = tbl_activity_sholat.user where tbl_activity_sholat.kegiatan != '0' GROUP by tbl_siswa.id
-       $this->db->order_by('tbl_siswa.kelas', 'DESC');
-		//$this->db->order_by('tbl_siswa.name', 'ASC');
-		$this->db->group_by('tbl_siswa.id');
-		$this->db->select([
-			'tbl_siswa.id as id_siswa',
-			'tbl_siswa.name as nama',
-			'tbl_siswa.nis as nis_siswa',
-			'tbl_siswa.kelas as kelas',
-			'tbl_siswa.kelamin as kelamin',
-			'count(tbl_activity_sholat.kegiatan) as jml_sholat_wajib',
-		])
-		->from('tbl_siswa')
-		->join('tbl_activity_sholat', 'tbl_siswa.id = tbl_activity_sholat.id', 'user')
-		;
-		
-		$q = $this->db->get();
-
-		return $q->result_array();
-	}*/
 	
 	public function get_list_kegiatan_sholat()
 	{
