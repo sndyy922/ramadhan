@@ -112,4 +112,8 @@ class Sholat_model extends CI_Model {
 	{
 		return $this->db->order_by('tgl', 'ASC')->get_where('tbl_ceramah',['id_user'=>$user])->result_array();
 	}
+
+    function get_detail_siswa($id){
+    	return $this->db->get_where('tbl_siswa', ['id'=>$id])->row_array();
+    }
 }

@@ -8,9 +8,10 @@ class Siswa extends CI_Controller {
 		$this->load->model('sholat_model');
 	}
 
-	public function index($id)
+	public function detail($id)
 	{
 		if(!empty($id)){
+			$d['detail_siswa'] = $this->sholat_model->get_detail_siswa($id);
 			$d['list_activity_per_date'] = $this->sholat_model->get_list_activity_per_date($id);
 			$d['list_activity'] = $this->sholat_model->get_list_activity();
 			$d['list_tadarus'] = $this->sholat_model->get_list_tadarus($id);

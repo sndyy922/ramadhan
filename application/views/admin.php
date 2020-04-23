@@ -91,7 +91,7 @@ input:checked + .slider:before {
 							<td><?php echo $value['nama'];?></td>
 							<td><?php echo $value['kelas'];?></td>
 							<td><?php echo $value['nis_siswa'];?></td>
-							<td><button type="button" class="btn btn-info" onclick="hapus();">Detail</button> </td>
+							<td><a href="<?php echo site_url('admin/siswa/detail/').$value['id_siswa'] ?>" class="btn btn-info" target="_blank">Detail</a> </td>
 					   </tr>
 					<?php endforeach; ?>
 				</tbody>

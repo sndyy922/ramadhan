@@ -12,22 +12,22 @@
 		          	<div>
 			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; width: 120px;">Nama</div>
 			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 2%;">:</div>
-			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 1%;" >Nama Siswa</div>
+			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 1%;" ><?=$detail_siswa['name']; ?></div>
 			        </div>
 			        <div>
 			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; width: 120px;">NIS</div>
 			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 2%;">:</div>
-			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 1%;" >Nama Siswa</div>
+			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 1%;" ><?=$detail_siswa['nis']; ?></div>
 			        </div>
 			        <div>
 			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; width: 120px;">Kelas</div>
 			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 2%;">:</div>
-			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 1%;" >Nama Siswa</div>
+			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 1%;" ><?=$detail_siswa['kelas']; ?></div>
 			        </div>
 			        <div>
 			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; width: 120px;">Jenis Kelamin</div>
 			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 2%;">:</div>
-			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 1%;" >Nama Siswa</div>
+			          <div style="display: inline-block!important; font-size: 15px; font-weight: bold; margin-left: 1%;" ><?=$detail_siswa['kelamin']; ?></div>
 			        </div>
 		          </div>
 		        </div>
