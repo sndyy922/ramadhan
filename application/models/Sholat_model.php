@@ -114,6 +114,6 @@ class Sholat_model extends CI_Model {
 	}
 
     function get_detail_siswa($id){
-    	return $this->db->get_where('tbl_siswa', ['id'=>$id])->row_array();
+    	return $this->db->get_where('tbl_siswa', ['nis'=>$id])->row_array();
     }
 }

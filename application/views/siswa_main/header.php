@@ -66,8 +66,8 @@
           <img src="<?php echo base_url(); ?>assets/logo.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Nama</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Kelamin</a>
+          <p><?php echo substr($this->session->userdata('nama'),0,25); ?></p>
+          <a href="#"><i class="fa fa-circle text-success"></i> <?php echo substr($this->session->userdata('kelamin'),0,25); ?></a>
         </div>
       </div>
       <!-- search form -->
@@ -90,10 +90,10 @@
           <ul class="treeview-menu">
             <li <?=$this->uri->segment(1) == '' ? 'class="active"' : ''?>><a href="<?php echo base_url(); ?>"><i class="fa fa-edit text-red"></i> Kegiatan Utama</a></li>
             <!-- /.<li><a href="<?php echo base_url('')."index.php/versi"; ?>"><i class="fa fa-edit text-blue"></i> Tadarus</a></li>-->
-			
 			<li <?=$this->uri->segment(1) == 'tadarus' ? 'class="active"' : ''?>><a href="<?php echo base_url('')."index.php/tadarus"; ?>"><i class="fa fa-edit text-blue"></i> Tadarus Saya</a></li>
             <li <?=$this->uri->segment(1) == 'galeri' ? 'class="active"' : ''?>><a href="<?php echo base_url('')."index.php/galeri"; ?>"><i class="fa fa-edit text-green"></i> Galeri Kegiatan</a></li>
 			<li <?=$this->uri->segment(1) == 'ceramah' ? 'class="active"' : ''?>><a href="<?php echo base_url('')."index.php/ceramah"; ?>"><i class="fa fa-edit text-yellow"></i> Catatan Ceramah</a></li>
+			<li <?=$this->uri->segment(1) == 'ceramah' ? 'class="active"' : ''?>><a href="<?php echo base_url('')."index.php/welcome/logout"; ?>"><i class="fa fa-sign-out text-red"></i> Logout</a></li>
 			
           </ul>
         </li>

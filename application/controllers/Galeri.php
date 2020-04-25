@@ -7,19 +7,23 @@ class Galeri extends CI_Controller {
 		parent::__construct();
         date_default_timezone_set('Asia/Jakarta');
 		$this->load->model('galeri_model');
+		if($this->session->userdata('user') == NULL){
+			redirect(base_url("index.php/login"));
+		}
 	}
 
 	public function index()
 	{
-		
-		$d['data'] = $this->galeri_model->get_list_foto(1);
+		$user = $this->session->userdata('nis');
+		$d['data'] = $this->galeri_model->get_list_foto($user);
         $this->load->view('siswa_main/header',$d);
         $this->load->view('galeri_kegiatan/index');
 	}
 
 	public function form()
 	{
-		$d['data'] = $this->galeri_model->get_list_foto(1);
+		$user = $this->session->userdata('nis');
+		$d['data'] = $this->galeri_model->get_list_foto($user);
         $d['now'] = date('Y-m-d H:i:s');
         $this->load->view('siswa_main/header', $d);
         $this->load->view('galeri_kegiatan/form');

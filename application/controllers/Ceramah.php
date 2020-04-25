@@ -20,11 +20,15 @@ class Ceramah extends CI_Controller {
 	 */
 	public function __construct(){
 		parent::__construct();
+		date_default_timezone_set('Asia/Jakarta');
 		$this->load->model('ceramah_model');
+		if($this->session->userdata('user') == NULL){
+			redirect(base_url("index.php/login"));
+		}
 	}
 	public function index()
 	{
-		$user = 1;
+		$user = $this->session->userdata('user');
 		$data['ceramah'] = $this->ceramah_model->get_list_tadarus($user);
 		$this->load->view('siswa_main/header',$data);
 		$this->load->view('siswa_ceramah',$data);
@@ -33,7 +37,7 @@ class Ceramah extends CI_Controller {
 	function tambah(){
 		//jam,chanel,penceramah,topik
 	   $today = date("Y-m-d");
-	   $id=1;
+	   $id=$this->session->userdata('user');
        $jam=$this->input->post('jam');
 	   $chanel=$this->input->post('chanel');
 	   $penceramah=$this->input->post('penceramah');

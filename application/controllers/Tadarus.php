@@ -21,17 +21,21 @@ class Tadarus extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('tadarus_model');
+		if($this->session->userdata('user') == NULL){
+			redirect(base_url("index.php/login"));
+		}
 	}
 	public function index()
 	{
-		$user = 1;
+		$user = $this->session->userdata('nis');
 		$data['tadarus'] = $this->tadarus_model->get_list_tadarus($user);
 		$data['listsurat'] = $this->tadarus_model->get_list_sholat();
 		$this->load->view('siswa_main/header',$data);
 		$this->load->view('siswa_tadarus',$data);
 	}
 	function tambah(){
-		$id=1;
+
+	   $id=$this->session->userdata('nis');
        $nama_surat=$this->input->post('nama_surat');
 	   $tanggal=$this->input->post('tanggal');
 	   $suratke=$this->input->post('suratke');

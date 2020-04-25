@@ -5,12 +5,16 @@ class Welcome extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		date_default_timezone_set('Asia/Jakarta');
 		$this->load->model('sholat_model');
+		if($this->session->userdata('user') == NULL){
+			redirect(base_url("index.php/login"));
+		}
 	}
 
 	public function index()
 	{
-		$user = 1;
+		$user = $this->session->userdata('nis');
 		$today = date("Y-m-d");
 		$cek_data = $this->db->query("select * from tbl_activity_sholat where tbl_activity_sholat.user='$user' and tbl_activity_sholat.waktu = '$today'");
 		$cek_hasil = $cek_data->num_rows();
@@ -36,6 +40,10 @@ class Welcome extends CI_Controller {
 			$this->load->view('siswa_main/header',$data);
 			$this->load->view('siswa_kegiatanutama',$data);
 		}
+	}
+	function logout(){
+		$this->session->sess_destroy();
+		redirect(base_url());
 	}
 	function update_sholat(){
        $id_act=$this->input->post('id_act');

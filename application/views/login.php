@@ -162,9 +162,9 @@ html,body{
             <div id="output"></div>
             <div class="avatar"></div>
             <div class="form-box">
-                <form action="" method="">
-                    <input name="user" type="text" placeholder="username">
-                    <input type="password" placeholder="password">
+                <form action="<?php echo base_url('index.php/login/aksi_login'); ?>" method="POST">
+                    <input name="username" type="text" placeholder="NIS">
+                    <input type="password" name="password" placeholder="password">
                     <button class="btn btn-info btn-block login" type="submit">Login</button>
                 </form>
             </div>
