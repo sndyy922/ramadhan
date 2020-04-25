@@ -375,7 +375,6 @@
           fd.append('webcam',files);
 
           var data = {
-            user: '1',
             keterangan: $('#form_keterangan').val(),
             waktu: $('#form_waktu').val(),
           }   
@@ -400,7 +399,6 @@
         Webcam.snap(function(data_uri){
           
           var data = {
-            user: '1',
             keterangan: $('#form_keterangan').val(),
             waktu: $('#form_waktu').val(),
           }        

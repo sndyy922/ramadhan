@@ -71,7 +71,7 @@ class Galeri extends CI_Controller {
 
 
             if($res == 1){
-	            $file['user'] = $this->input->get('user');
+	            $file['user'] = $this->session->userdata('nis');
 	            $file['waktu'] = $this->input->get('waktu');
 	            $file['keterangan'] = $this->input->get('keterangan');
 
